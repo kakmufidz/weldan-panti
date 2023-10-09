@@ -1,0 +1,47 @@
+.drk:after {
+   content: "";
+   display: block;
+   position: absolute;
+   top: 0;
+   bottom: 0;
+   left: 0;
+   right: 0;
+   background: black;
+   opacity: 0.6;
+   z-index: 1;
+}
+  
+      .carousel-caption {
+        z-index: 2;
+      }
+  
+      .carousel-inner {
+        margin-top: 30px;
+      }
+  
+      .select2-container--open {
+        z-index: 9999999
+      }
+  
+      .dropdown-menu {
+        -webkit-animation: .6s cubic-bezier(.25, .8, .25, 1) 0s normal forwards 1 animdropdown;
+        animation: .6s cubic-bezier(.25, .8, .25, 1) 0s normal forwards 1 animdropdown;
+        -webkit-box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+        box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+        border: 0 solid #e9ecef;
+        border-radius: 10px;
+        font-size: 14px;
+        vertical-align: middle;
+        margin-right: 10px;
+      }
+
+
+.btn-successv2 {
+    color: #fff;
+    background-color: #009354;
+    border-color: #009354;
+}
+
+.text-successv2 {
+    color: #009354!important;
+}

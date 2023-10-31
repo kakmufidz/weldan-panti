@@ -69,6 +69,11 @@
   <script src="<?= base_url() ?>assets/plugins/sweetalert2/dist/sweetalert2.all.min.js"></script>
   <!--app JS-->
   <script src="<?= base_url() ?>assets/js/app.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('[data-toggle="tooltip"]').tooltip();
+    });
+  </script>
   <?= $this->renderSection('script') ?>
 </body>
 

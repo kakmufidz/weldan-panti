@@ -13,8 +13,6 @@ class Auth extends BaseController
     
     public function login()
     {
-        var_dump($_POST);
-        die;
         $mmanager = new Manager();
         $dataManager = $mmanager->where(array('email' => $_POST['email']))->first();
         if (!empty($dataManager)) {

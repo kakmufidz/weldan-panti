@@ -22,9 +22,9 @@
           <td>
             <?php $gambar = json_decode($anak['foto']);
             if (isset($gambar[0])) : ?>
-              <img src="<?= base_url() ?>/uploads/foto_anak/<?= $gambar[0] ?>" class="product-img-2" alt="product img">
+              <img src="<?= base_url() ?>/uploads/foto_anak/<?= $gambar[0] ?>" class="product-img-2" style="object-fit: cover;" alt="product img">
             <?php else : ?>
-              <img src="<?= base_url() ?>/images/default-product.png" class="product-img-2" alt="product img">
+              <img src="<?= base_url() ?>/images/default-product.png" class="product-img-2" style="object-fit: cover;" alt="product img">
             <?php endif; ?>
 
           </td>
@@ -36,7 +36,7 @@
           <td><?= $anak['status_anak'] . ", " . $anak['status_panti'] ?></td>
           <td>
             <div class="d-flex order-actions">
-              <a href="<?= base_url() ?>anak/edit?nip=<?= $anak['nip'] ?>" class="text-primary"><i class='bx bxs-edit'></i></a>
+              <a href="<?= base_url() ?>anak/profile?nip=<?= $anak['nip'] ?>" class="text-primary" data-toggle="tooltip" data-placement="top" title="Profile Anak"><i class='bx bxs-user-circle'></i></a>
               <a href="javascript:;" class="text-danger ms-3 btnHapus" data-nip="<?= $anak['nip'] ?>"><i class='bx bxs-trash'></i></a>
             </div>
           </td>

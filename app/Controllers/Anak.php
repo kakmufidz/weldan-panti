@@ -34,6 +34,19 @@ class Anak extends BaseController
     return view('anak/tambah_anak', $data);
   }
 
+  public function profile()
+  {
+    if ($this->session->get('NAMA') == null)  return redirect()->to(base_url());
+    $manak = new Anak_asuh();
+    $dataAnak = $manak->where(['nip' => $_GET['nip'], 'deleted_at' => null])->get()->getRowArray();
+    $data = [
+      "page_title" => "Profile Anak",
+      "session" => $this->session->get(),
+      "anak" => $dataAnak
+    ];
+    return view('anak/profile_anak', $data);
+  }
+
   public function edit()
   {
     if ($this->session->get('NAMA') == null)  return redirect()->to(base_url());

@@ -16,10 +16,38 @@
       </a>
     </li>
     <li>
+      <a href="#">
+        <div class="parent-icon"><i class="bx bx-message-square-dots"></i></i>
+        </div>
+        <div class="menu-title">Administrasi</div>
+      </a>
+    </li>
+    <li>
+      <a href="#">
+        <div class="parent-icon"><i class="bx bx-money"></i></i>
+        </div>
+        <div class="menu-title">Donasi & Keuangan</div>
+      </a>
+    </li>
+    <li>
       <a href="<?= base_url('anak') ?>">
         <div class="parent-icon"><i class="bx bx-group"></i>
         </div>
         <div class="menu-title">Anak Asuh</div>
+      </a>
+    </li>
+    <li>
+      <a href="#">
+        <div class="parent-icon"><i class="bx bx-user-circle"></i></i>
+        </div>
+        <div class="menu-title">Pengurus</div>
+      </a>
+    </li>
+    <li>
+      <a href="#">
+        <div class="parent-icon"><i class="bx bx-donate-heart"></i></i>
+        </div>
+        <div class="menu-title">Donatur</div>
       </a>
     </li>
   </ul>

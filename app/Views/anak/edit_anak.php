@@ -67,7 +67,7 @@
                   <div class="row">
                     <div class="col-6">
                       <label for="desa" class="form-label">DESA*</label>
-                      <input type="text" class="form-control" id="desa" name="desa" value="<?= $anak['tempat_lahir'] ?>" placeholder="Masukkan Desa" required>
+                      <input type="text" class="form-control" id="desa" name="desa" value="<?= $anak['desa'] ?>" placeholder="Masukkan Desa" required>
                     </div>
                     <div class="col-6">
                       <label for="kecamatan" class="form-label">KECAMATAN*</label>
@@ -233,7 +233,7 @@
             }
           } else {
             if (result.update == true) {
-              window.location.href = "<?= base_url('anak') ?>";
+              window.location.href = "<?= base_url('anak/profile?nip=' . $anak['nip'] . '') ?>";
             }
           }
         },

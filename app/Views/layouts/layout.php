@@ -20,13 +20,20 @@
   <link href="<?= base_url() ?>assets/css/bootstrap.min.css" rel="stylesheet">
   <link href="<?= base_url() ?>assets/css/bootstrap-extended.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="<?= base_url() ?>assets/css/app.css" rel="stylesheet">
   <link href="<?= base_url() ?>assets/css/icons.css" rel="stylesheet">
   <!-- Theme Style CSS -->
   <link rel="stylesheet" href="<?= base_url() ?>assets/css/dark-theme.css" />
   <link rel="stylesheet" href="<?= base_url() ?>assets/css/semi-dark.css" />
   <link rel="stylesheet" href="<?= base_url() ?>assets/css/header-colors.css" />
-  <title><?= (isset($title)) ? $title : "Smart Panti"; ?></title>
+  <?php
+  $this->session = session();
+  $id_panti = $this->session->get('ID_PANTI');
+  $this->db = \Config\Database::connect();
+  $panti = $this->db->table("panti")->select("*")->where("id", $id_panti)->get()->getRowArray();
+  ?>
+  <title><?= (isset($page_title)) ? $page_title . " " . $panti['nama_panti'] . " Smart Panti" : "Smart Panti"; ?></title>
 </head>
 
 <body>
@@ -71,7 +78,10 @@
   <script src="<?= base_url() ?>assets/js/app.js"></script>
   <script type="text/javascript">
     $(document).ready(function() {
-      $('[data-toggle="tooltip"]').tooltip();
+      $("body").tooltip({
+        selector: '[data-bs-toggle="tooltip"]'
+      });
+
     });
   </script>
   <?= $this->renderSection('script') ?>

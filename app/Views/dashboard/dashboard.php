@@ -18,7 +18,7 @@
             ?>
             <div>
               <p class="mb-0 text-secondary">Anak Asuh</p>
-              <h4 class="my-1 text-info"><span class="counter">27</span></h4>
+              <h4 class="my-1 text-info"><span class="counter"><?= sizeof($anak) ?></span></h4>
               <p class="mb-0 font-13">Tanggal <?= $tanggal ?></p>
             </div>
             <div class="widgets-icons-2 rounded-circle bg-gradient-scooter text-white ms-auto"><i class='bx bxs-cart'></i>
@@ -32,8 +32,8 @@
         <div class="card-body">
           <div class="d-flex align-items-center">
             <div>
-              <p class="mb-0 text-secondary">Penerima Manfaat</p>
-              <h4 class="my-1 text-success"><span class="counter">4,369</span></h4>
+              <p class="mb-0 text-secondary">Data Donatur</p>
+              <h4 class="my-1 text-success"><span class="counter"><?= sizeof($donatur) ?></span></h4>
               <p class="mb-0 font-13">Tanggal <?= $tanggal ?></p>
             </div>
             <div class="widgets-icons-2 rounded-circle bg-gradient-ohhappiness text-white ms-auto"><i class='bx bxs-wallet'></i>
@@ -47,8 +47,8 @@
         <div class="card-body">
           <div class="d-flex align-items-center">
             <div>
-              <p class="mb-0 text-secondary">Donatur</p>
-              <h4 class="my-1" style="color: #673ab7!important;"><span class="counter">539</span></h4>
+              <p class="mb-0 text-secondary">Pemasukan</p>
+              <h4 class="my-1" style="color: #673ab7!important;">Rp. <span class="counter"><?= rp_count($pemasukan)  ?></span></h4>
               <p class="mb-0 font-13">Tanggal <?= $tanggal ?></p>
             </div>
             <div class="widgets-icons-2 rounded-circle bg-gradient-cosmic text-white ms-auto"><i class='bx bxs-bar-chart-alt-2'></i>
@@ -62,7 +62,7 @@
         <div class="card-body">
           <div class="d-flex align-items-center">
             <div>
-              <p class="mb-0 text-secondary">Partnership</p>
+              <p class="mb-0 text-secondary">Pengeluaran</p>
               <h4 class="my-1" style="color: #e10a1f!important;"><span class="counter">30</h4>
               <p class="mb-0 font-13">Tanggal <?= $tanggal ?></p>
             </div>

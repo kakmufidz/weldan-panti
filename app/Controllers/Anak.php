@@ -132,7 +132,7 @@ class Anak extends BaseController
         ],
       ];
 
-      if (!empty($_FILES['fotoAnak']['name'][0])) {
+      if (!empty($_FILES['fotoAnak']['name'])) {
         $validationRule['fotoAnak'] = [
           'label' => 'Foto',
           'rules' => [
@@ -174,15 +174,13 @@ class Anak extends BaseController
         $manak = new Anak_asuh();
         $data['insert'] = $manak->save($input_anak);
         $lastInsertId = $this->db->insertID();
-        if (!empty($_FILES['fotoAnak']['name'][0])) {
+        if (!empty($_FILES['fotoAnak']['name'])) {
           $files = $this->request->getFiles();
           $nameGambar = [];
-          foreach ($files['fotoAnak'] as $file) {
-            if ($file->isValid() && !$file->hasMoved()) {
-              $newName = $file->getRandomName();
-              array_push($nameGambar, $newName);
-              $file->move(FCPATH . 'uploads/foto_anak', $newName);
-            }
+          if ($files['fotoAnak']->isValid() && !$files['fotoAnak']->hasMoved()) {
+            $newName = $files['fotoAnak']->getRandomName();
+            array_push($nameGambar, $newName);
+            $files['fotoAnak']->move(FCPATH . 'uploads/foto_anak', $newName);
           }
           $this->db->table("anak_asuh")->update(['foto' => json_encode($nameGambar)], ['id' => $lastInsertId]);
         }
@@ -266,7 +264,7 @@ class Anak extends BaseController
         ],
       ];
 
-      if (!empty($_FILES['fotoAnak']['name'][0])) {
+      if (!empty($_FILES['fotoAnak']['name'])) {
         $validationRule['fotoAnak'] = [
           'label' => 'Foto',
           'rules' => [
@@ -275,6 +273,7 @@ class Anak extends BaseController
           ],
         ];
       }
+
       if (!$this->validate($validationRule)) {
         $notempty = [];
         foreach ($_POST as $name => $val) {
@@ -306,15 +305,13 @@ class Anak extends BaseController
         );
         $manak = new Anak_asuh();
         $updateData = $this->db->table("anak_asuh")->update($input_anak, ['nip' => $_POST['nipAnak']]);
-        if (!empty($_FILES['fotoAnak']['name'][0])) {
+        if (!empty($_FILES['fotoAnak']['name'])) {
           $files = $this->request->getFiles();
           $nameGambar = [];
-          foreach ($files['fotoAnak'] as $file) {
-            if ($file->isValid() && !$file->hasMoved()) {
-              $newName = $file->getRandomName();
-              array_push($nameGambar, $newName);
-              $file->move(FCPATH . 'uploads/foto_anak', $newName);
-            }
+          if ($files['fotoAnak']->isValid() && !$files['fotoAnak']->hasMoved()) {
+            $newName = $files['fotoAnak']->getRandomName();
+            array_push($nameGambar, $newName);
+            $files['fotoAnak']->move(FCPATH . 'uploads/foto_anak', $newName);
           }
           $this->db->table("anak_asuh")->update(['foto' => json_encode($nameGambar)], ['nip' => $_POST['nipAnak']]);
         }

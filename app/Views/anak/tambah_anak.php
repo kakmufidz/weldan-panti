@@ -128,7 +128,7 @@
                 <div class="row g-3">
                   <div class="col-md-12">
                     <label for="fotoAnak" class="form-label">Foto Anak*</label>
-                    <input id="fotoAnak" type="file" name="fotoAnak[]" accept="image/*" multiple>
+                    <input id="fotoAnak" class="form-control" type="file" name="fotoAnak" accept="image/*">
                     <div id="validation-fotoAnak" class="invalid-feedback"></div>
                   </div>
                 </div>
@@ -151,8 +151,6 @@
 <script src="<?= base_url() ?>/assets/plugins/select2/js/select2.min.js"></script>
 <script type="text/javascript">
   $(document).ready(function() {
-    $('#fotoAnak').imageuploadify();
-
     $("#formAnak").on('submit', function(event) {
       event.preventDefault();
       var formdata = new FormData(this);

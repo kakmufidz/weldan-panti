@@ -30,13 +30,21 @@
           </td>
           <td><?= $anak['nama'] ?></td>
           <td><?= $anak['tempat_lahir'] . ", " . date("d-m-Y", strtotime($anak['tanggal_lahir'])) ?></td>
-          <td><?= $anak['kecamatan'] ?></td>
-          <!-- <td><?= "Desa " . $anak['desa'] . " RT0" . $anak['rt'] . "/RW0" . $anak['rw'] .  ", Kec. " . $anak['kecamatan'] . ", Kab " . $anak['kabupaten'] . " - " . $anak['provinsi'] ?></td> -->
+          <td>
+            <?= (isset($anak['desa']) ? $anak['desa'] : "")
+              . (isset($anak['rt']) ? " RT" . $anak['rt'] : "")
+              . (isset($anak['rw']) ? " RW" . $anak['rw'] : "")
+              . (isset($anak['kecamatan']) ? ", Kec. " . $anak['kecamatan'] : "")
+              . (isset($anak['kabupaten']) ? ", Kab. " . $anak['kabupaten'] : "")
+              . " - "
+              . (isset($anak['provinsi']) ? "" . $anak['provinsi'] : "");
+            ?>
+          </td>
           <td><?= $anak['kategori_anak'] ?></td>
           <td><?= $anak['status_anak'] . ", " . $anak['status_panti'] ?></td>
           <td>
             <div class="d-flex order-actions">
-              <a href="<?= base_url() ?>anak/profile?nip=<?= $anak['nip'] ?>" class="text-primary" data-toggle="tooltip" data-placement="top" title="Profile Anak"><i class='bx bxs-user-circle'></i></a>
+              <a href="<?= base_url() ?>anak/profile?nip=<?= $anak['nip'] ?>" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Profile Anak"><i class='bx bxs-user-circle'></i></a>
               <a href="javascript:;" class="text-danger ms-3 btnHapus" data-nip="<?= $anak['nip'] ?>"><i class='bx bxs-trash'></i></a>
             </div>
           </td>
@@ -50,6 +58,7 @@
 <script src="<?= base_url() ?>/assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
 <script type="text/javascript">
   $(document).ready(function() {
+
     var table = $('#example2').DataTable({
       lengthChange: false,
       buttons: ['copy', 'excel', 'pdf', 'print']

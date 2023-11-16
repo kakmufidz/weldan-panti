@@ -1,0 +1,88 @@
+INFO - 2023-11-14 17:12:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-11-14 17:18:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-11-14 17:18:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-11-14 17:19:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-11-14 17:19:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-11-14 17:19:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-11-14 17:19:56 --> Trying to access array offset on value of type null
+in APPPATH\Views\pemasukan\edit_pemasukan.php on line 31.
+ 1 APPPATH\Views\pemasukan\edit_pemasukan.php(31): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Trying to access array offset on value of type null', 'C:\\laragon\\www\\weldan-panti\\app\\Views\\pemasukan\\edit_pemasukan.php', 31, [...])
+ 2 SYSTEMPATH\View\View.php(213): include('C:\\laragon\\www\\weldan-panti\\app\\Views\\pemasukan\\edit_pemasukan.php')
+ 3 SYSTEMPATH\View\View.php(216): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1184): CodeIgniter\View\View->render('pemasukan/edit_pemasukan', [], true)
+ 5 APPPATH\Controllers\Pemasukan.php(57): view('pemasukan/edit_pemasukan', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\Pemasukan->edit()
+ 7 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Pemasukan))
+ 8 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-11-14 17:19:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-11-14 17:19:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-11-14 17:20:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-11-14 17:20:10 --> Trying to access array offset on value of type null
+in APPPATH\Views\pemasukan\edit_pemasukan.php on line 31.
+ 1 APPPATH\Views\pemasukan\edit_pemasukan.php(31): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Trying to access array offset on value of type null', 'C:\\laragon\\www\\weldan-panti\\app\\Views\\pemasukan\\edit_pemasukan.php', 31, [...])
+ 2 SYSTEMPATH\View\View.php(213): include('C:\\laragon\\www\\weldan-panti\\app\\Views\\pemasukan\\edit_pemasukan.php')
+ 3 SYSTEMPATH\View\View.php(216): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1184): CodeIgniter\View\View->render('pemasukan/edit_pemasukan', [], true)
+ 5 APPPATH\Controllers\Pemasukan.php(57): view('pemasukan/edit_pemasukan', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\Pemasukan->edit()
+ 7 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Pemasukan))
+ 8 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-11-14 17:22:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-11-14 17:23:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-11-14 17:23:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-11-14 17:23:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-11-14 17:23:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-11-14 17:23:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-11-14 17:23:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-11-14 17:23:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2023-11-14 17:24:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-11-14 17:24:27 --> Undefined index: nohp
+in APPPATH\Views\pemasukan\edit_pemasukan.php on line 39.
+ 1 APPPATH\Views\pemasukan\edit_pemasukan.php(39): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index: nohp', 'C:\\laragon\\www\\weldan-panti\\app\\Views\\pemasukan\\edit_pemasukan.php', 39, [...])
+ 2 SYSTEMPATH\View\View.php(213): include('C:\\laragon\\www\\weldan-panti\\app\\Views\\pemasukan\\edit_pemasukan.php')
+ 3 SYSTEMPATH\View\View.php(216): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1184): CodeIgniter\View\View->render('pemasukan/edit_pemasukan', [], true)
+ 5 APPPATH\Controllers\Pemasukan.php(57): view('pemasukan/edit_pemasukan', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\Pemasukan->edit()
+ 7 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Pemasukan))
+ 8 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-11-14 17:25:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-11-14 17:25:54 --> Undefined index: rt
+in APPPATH\Views\pemasukan\edit_pemasukan.php on line 51.
+ 1 APPPATH\Views\pemasukan\edit_pemasukan.php(51): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index: rt', 'C:\\laragon\\www\\weldan-panti\\app\\Views\\pemasukan\\edit_pemasukan.php', 51, [...])
+ 2 SYSTEMPATH\View\View.php(213): include('C:\\laragon\\www\\weldan-panti\\app\\Views\\pemasukan\\edit_pemasukan.php')
+ 3 SYSTEMPATH\View\View.php(216): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1184): CodeIgniter\View\View->render('pemasukan/edit_pemasukan', [], true)
+ 5 APPPATH\Controllers\Pemasukan.php(57): view('pemasukan/edit_pemasukan', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\Pemasukan->edit()
+ 7 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Pemasukan))
+ 8 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-11-14 17:27:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-11-14 17:27:02 --> Undefined variable: donatur
+in APPPATH\Views\pemasukan\edit_pemasukan.php on line 68.
+ 1 APPPATH\Views\pemasukan\edit_pemasukan.php(68): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined variable: donatur', 'C:\\laragon\\www\\weldan-panti\\app\\Views\\pemasukan\\edit_pemasukan.php', 68, [...])
+ 2 SYSTEMPATH\View\View.php(213): include('C:\\laragon\\www\\weldan-panti\\app\\Views\\pemasukan\\edit_pemasukan.php')
+ 3 SYSTEMPATH\View\View.php(216): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1184): CodeIgniter\View\View->render('pemasukan/edit_pemasukan', [], true)
+ 5 APPPATH\Controllers\Pemasukan.php(57): view('pemasukan/edit_pemasukan', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\Pemasukan->edit()
+ 7 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Pemasukan))
+ 8 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-11-14 17:32:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2023-11-14 17:32:23 --> Undefined index: foto
+in APPPATH\Views\pemasukan\edit_pemasukan.php on line 109.
+ 1 APPPATH\Views\pemasukan\edit_pemasukan.php(109): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index: foto', 'C:\\laragon\\www\\weldan-panti\\app\\Views\\pemasukan\\edit_pemasukan.php', 109, [...])
+ 2 SYSTEMPATH\View\View.php(213): include('C:\\laragon\\www\\weldan-panti\\app\\Views\\pemasukan\\edit_pemasukan.php')
+ 3 SYSTEMPATH\View\View.php(216): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1184): CodeIgniter\View\View->render('pemasukan/edit_pemasukan', [], true)
+ 5 APPPATH\Controllers\Pemasukan.php(57): view('pemasukan/edit_pemasukan', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\Pemasukan->edit()
+ 7 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Pemasukan))
+ 8 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+INFO - 2023-11-14 17:32:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.

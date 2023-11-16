@@ -1,0 +1,72 @@
+CRITICAL - 2023-10-31 10:48:55 --> Invalid file: "anak/tabel_donatur.php"
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 33.
+ 1 SYSTEMPATH\View\View.php(201): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('anak/tabel_donatur.php')
+ 2 SYSTEMPATH\Common.php(1184): CodeIgniter\View\View->render('anak/tabel_donatur', [], true)
+ 3 APPPATH\Controllers\Donatur.php(73): view('anak/tabel_donatur', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\Donatur->get_data()
+ 5 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Donatur))
+ 6 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-10-31 10:49:45 --> Invalid file: "anak/tabel_donatur.php"
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 33.
+ 1 SYSTEMPATH\View\View.php(201): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('anak/tabel_donatur.php')
+ 2 SYSTEMPATH\Common.php(1184): CodeIgniter\View\View->render('anak/tabel_donatur', [], true)
+ 3 APPPATH\Controllers\Donatur.php(73): view('anak/tabel_donatur', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\Donatur->get_data()
+ 5 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Donatur))
+ 6 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-10-31 10:50:37 --> Invalid file: "anak/tabel_donatur.php"
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 33.
+ 1 SYSTEMPATH\View\View.php(201): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('anak/tabel_donatur.php')
+ 2 SYSTEMPATH\Common.php(1184): CodeIgniter\View\View->render('anak/tabel_donatur', [], true)
+ 3 APPPATH\Controllers\Donatur.php(73): view('anak/tabel_donatur', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\Donatur->get_data()
+ 5 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Donatur))
+ 6 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-10-31 11:04:10 --> Invalid file: "donatur/tambah_donatur.php"
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 33.
+ 1 SYSTEMPATH\View\View.php(201): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('donatur/tambah_donatur.php')
+ 2 SYSTEMPATH\Common.php(1184): CodeIgniter\View\View->render('donatur/tambah_donatur', [], true)
+ 3 APPPATH\Controllers\Donatur.php(35): view('donatur/tambah_donatur', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\Donatur->tambah_donatur()
+ 5 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Donatur))
+ 6 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-10-31 11:04:24 --> Invalid file: "donatur/tambah_donatur.php"
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 33.
+ 1 SYSTEMPATH\View\View.php(201): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('donatur/tambah_donatur.php')
+ 2 SYSTEMPATH\Common.php(1184): CodeIgniter\View\View->render('donatur/tambah_donatur', [], true)
+ 3 APPPATH\Controllers\Donatur.php(35): view('donatur/tambah_donatur', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\Donatur->tambah_donatur()
+ 5 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Donatur))
+ 6 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-10-31 11:04:25 --> Invalid file: "donatur/tambah_donatur.php"
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 33.
+ 1 SYSTEMPATH\View\View.php(201): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('donatur/tambah_donatur.php')
+ 2 SYSTEMPATH\Common.php(1184): CodeIgniter\View\View->render('donatur/tambah_donatur', [], true)
+ 3 APPPATH\Controllers\Donatur.php(35): view('donatur/tambah_donatur', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\Donatur->tambah_donatur()
+ 5 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Donatur))
+ 6 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-10-31 11:04:26 --> Invalid file: "donatur/tambah_donatur.php"
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 33.
+ 1 SYSTEMPATH\View\View.php(201): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('donatur/tambah_donatur.php')
+ 2 SYSTEMPATH\Common.php(1184): CodeIgniter\View\View->render('donatur/tambah_donatur', [], true)
+ 3 APPPATH\Controllers\Donatur.php(35): view('donatur/tambah_donatur', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\Donatur->tambah_donatur()
+ 5 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Donatur))
+ 6 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-10-31 11:04:29 --> Invalid file: "donatur/tambah_donatur.php"
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 33.
+ 1 SYSTEMPATH\View\View.php(201): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('donatur/tambah_donatur.php')
+ 2 SYSTEMPATH\Common.php(1184): CodeIgniter\View\View->render('donatur/tambah_donatur', [], true)
+ 3 APPPATH\Controllers\Donatur.php(35): view('donatur/tambah_donatur', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\Donatur->tambah_donatur()
+ 5 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Donatur))
+ 6 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()

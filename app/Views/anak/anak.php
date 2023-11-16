@@ -26,7 +26,7 @@
             <button type="button" id="btn-refresh" class="btn btn-primary ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Refresh Data"><i class="bx bx-refresh me-0"></i></button>
           </div>
           <div class="">
-            <a href="<?= base_url() ?>/anak/tambah_anak" class="btn btn-primary ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Tambah Anak Asuh"><i class="bx bx-user-plus me-0"></i></a>
+            <a href="<?= base_url() ?>anak/tambah_anak" class="btn btn-primary ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Tambah Anak Asuh"><i class="bx bx-user-plus me-0"></i></a>
           </div>
         </div>
       </div>
@@ -41,7 +41,7 @@
   function get_anak() {
     $.ajax({
       type: 'GET',
-      url: '<?= base_url() ?>/anak/get_data?act=tabel-anak',
+      url: '<?= base_url() ?>anak/get_data?act=tabel-anak',
       success: function(result) {
         $('#show_tabelAnak').html(result);
       },
@@ -50,10 +50,6 @@
 
   $(document).ready(function() {
     get_anak();
-
-    $("body").tooltip({
-      selector: '[data-bs-toggle="tooltip"]'
-    });
 
     $("#btn-refresh").on('click', function() {
       Pace.restart();
@@ -64,7 +60,7 @@
 
     $("#show_tabelAnak").on("click", ".btnHapus", function() {
       Swal.fire({
-        html: `Apakah Anda yakin menghapus jasa ini?`,
+        html: `Apakah Anda yakin menghapus data ini?`,
         icon: "warning",
         buttonsStyling: false,
         showCancelButton: true,
@@ -78,7 +74,7 @@
         if (result.isConfirmed) {
           var nip = $(this).attr("data-nip");
           $.ajax({
-            url: '<?= base_url('/anak/proses?act=delete_anak') ?>',
+            url: '<?= base_url('anak/proses?act=delete_anak') ?>',
             type: 'POST',
             data: {
               nip: nip,

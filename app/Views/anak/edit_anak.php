@@ -149,7 +149,7 @@
                         </div>
                       </div>
                     <?php endif; ?>
-                    <input id="fotoAnak" type="file" name="fotoAnak[]" accept="image/*" multiple>
+                    <input id="fotoAnak" class="form-control mt-1" type="file" name="fotoAnak" accept="image/*">
                     <div id="validation-fotoAnak" class="invalid-feedback"></div>
                   </div>
                 </div>
@@ -171,7 +171,6 @@
 <script src="<?= base_url() ?>assets/plugins/Drag-And-Drop/dist/imageuploadify.min.js"></script>
 <script type="text/javascript">
   $(document).ready(function() {
-    $('#fotoAnak').imageuploadify();
 
     $('#listGambar').on('click', ".btnimage", function(event) {
       event.preventDefault();

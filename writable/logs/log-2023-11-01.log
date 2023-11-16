@@ -1,0 +1,56 @@
+CRITICAL - 2023-11-01 13:38:06 --> Invalid file: "donatur/edit_donatur.php"
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 33.
+ 1 SYSTEMPATH\View\View.php(201): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('donatur/edit_donatur.php')
+ 2 SYSTEMPATH\Common.php(1184): CodeIgniter\View\View->render('donatur/edit_donatur', [], true)
+ 3 APPPATH\Controllers\Donatur.php(60): view('donatur/edit_donatur', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\Donatur->edit()
+ 5 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Donatur))
+ 6 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-11-01 14:41:48 --> syntax error, unexpected '}'
+in APPPATH\Views\layouts\sidebar.php on line 16.
+ 1 SYSTEMPATH\View\View.php(216): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 2 SYSTEMPATH\View\View.php(431): CodeIgniter\View\View->render('layouts/sidebar', null, true)
+ 3 APPPATH\Views\layouts\layout.php(36): CodeIgniter\View\View->include('layouts/sidebar')
+ 4 SYSTEMPATH\View\View.php(213): include('C:\\laragon\\www\\weldan-panti\\app\\Views\\layouts\\layout.php')
+ 5 SYSTEMPATH\View\View.php(216): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 6 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->render('layouts/layout', [], true)
+ 7 SYSTEMPATH\Common.php(1184): CodeIgniter\View\View->render('dashboard/dashboard', [], true)
+ 8 APPPATH\Controllers\Dashboard.php(21): view('dashboard/dashboard', [...])
+ 9 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\Dashboard->index()
+10 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+11 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-11-01 16:35:39 --> Call to a member function get() on null
+in APPPATH\Views\layouts\layout.php on line 30.
+ 1 SYSTEMPATH\View\View.php(213): include()
+ 2 SYSTEMPATH\View\View.php(216): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->render('layouts/layout', [], true)
+ 4 SYSTEMPATH\Common.php(1184): CodeIgniter\View\View->render('anak/anak', [], true)
+ 5 APPPATH\Controllers\Anak.php(24): view('anak/anak', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\Anak->index()
+ 7 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Anak))
+ 8 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-11-01 16:39:03 --> Call to a member function table() on null
+in APPPATH\Views\layouts\layout.php on line 31.
+ 1 SYSTEMPATH\View\View.php(213): include()
+ 2 SYSTEMPATH\View\View.php(216): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->render('layouts/layout', [], true)
+ 4 SYSTEMPATH\Common.php(1184): CodeIgniter\View\View->render('anak/anak', [], true)
+ 5 APPPATH\Controllers\Anak.php(24): view('anak/anak', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\Anak->index()
+ 7 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Anak))
+ 8 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-11-01 16:39:56 --> Call to a member function table() on null
+in APPPATH\Views\layouts\layout.php on line 31.
+ 1 SYSTEMPATH\View\View.php(213): include()
+ 2 SYSTEMPATH\View\View.php(216): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->render('layouts/layout', [], true)
+ 4 SYSTEMPATH\Common.php(1184): CodeIgniter\View\View->render('anak/anak', [], true)
+ 5 APPPATH\Controllers\Anak.php(24): view('anak/anak', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\Anak->index()
+ 7 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Anak))
+ 8 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()

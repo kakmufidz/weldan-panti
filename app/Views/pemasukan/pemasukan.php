@@ -82,6 +82,7 @@
                           </option>
                         <?php endforeach; ?>
                       </select>
+                      <div id="validation-idDonatur" class="invalid-feedback"></div>
                     </div>
                     <div class="mb-3" id="btnTambahDonatur" style="display: none;">
                       <a href="<?= base_url() ?>donatur/tambah_donatur" class="btn btn-primary px-5 radius-30">Tambah Donatur Baru</a>
@@ -154,6 +155,7 @@
   function sumber_pemasukan() {
     var selectedValue = $("#sumberPemasukan").val();
     if (selectedValue == "sumber-lain") {
+      $("#btnTambahDonatur").css("display", "none")
       $("#formSumberDonatur").css("display", "none")
       $("#idDonatur").attr("required", false);
       $("#sumberLainnya").attr("required", true);

@@ -48,11 +48,15 @@ class Pemasukan extends BaseController
   public function edit()
   {
     if ($this->session->get('NAMA') == null)  return redirect()->to(base_url());
+    $id_panti = $this->session->get('ID_PANTI');
     $mpemasukan = new ModelsPemasukan();
     $datamPemasukan = $mpemasukan->where(['id' => $_GET['id'], 'deleted_at' => null])->get()->getRowArray();
+    $mdonatur = new Donatur();
+    $dataDonatur = $mdonatur->where(['id_panti' => $id_panti, 'deleted_at' => null])->get()->getResultArray();
     $data = [
       "page_title" => "Edit Data Pemasukan",
-      "pemasukan" => $datamPemasukan
+      "pemasukan" => $datamPemasukan,
+      "alldonatur" => $dataDonatur
     ];
     return view('pemasukan/edit_pemasukan', $data);
   }
@@ -109,42 +113,55 @@ class Pemasukan extends BaseController
           'errors' => $this->validator->getErrors()
         ];
       } else {
-        $id_panti = $this->session->get('ID_PANTI');
-        if ($_POST['sumberPemasukan'] == "sumber-donatur") {
-          $id_donatur = $_POST['idDonatur'];
-          $mdonatur = new Donatur();
-          $dataDonatur = $mdonatur->where(['id_panti' => $id_donatur, 'deleted_at' => null])->get()->getRowArray();
-          $nama = $dataDonatur['nama'];
-        } else {
-          $id_donatur = null;
-          $nama = $_POST['sumberLainnya'];
-        }
-        $dateParts = explode('/', $_POST['tanggal']);
-        $day = $dateParts[0];
-        $month = $dateParts[1];
-        $year = $dateParts[2];
-        $tanggal = $year . "-" . $month . "-" . $day;
-        $input_pemasukan = array(
-          'id_panti' => $id_panti,
-          'sumber' => $_POST['sumberPemasukan'],
-          'id_donatur' => $id_donatur,
-          'nama' => $nama,
-          'tanggal_pemasukan' => date("Y-m-d", strtotime($tanggal)),
-          'jumlah' => $_POST['jumlah'],
-          'keterangan' => $_POST['keterangan']
-        );
-        $mpemasukan = new ModelsPemasukan();
-        $data['insert'] = $mpemasukan->save($input_pemasukan);
-        $lastInsertId = $this->db->insertID();
-        if (!empty($_FILES['fileUpload']['name'])) {
-          $files = $this->request->getFiles();
-          $nameGambar = [];
-          if ($files['fileUpload']->isValid() && !$files['fileUpload']->hasMoved()) {
-            $newName = $files['fileUpload']->getRandomName();
-            array_push($nameGambar, $newName);
-            $files['fileUpload']->move(FCPATH . 'uploads/file_pemasukan', $newName);
+        if ($_POST['idDonatur'] == "donatur-baru") {
+          $notempty = [];
+          foreach ($_POST as $name => $val) {
+            if (!empty($val)) {
+              array_push($notempty, $name);
+            }
           }
-          $this->db->table("pemasukan")->update(['file' => json_encode($nameGambar)], ['id' => $lastInsertId]);
+          $data = [
+            'notempty' => $notempty,
+            'errors' => ['idDonatur' => 'Mohon pilih donatur']
+          ];
+        } else {
+          $id_panti = $this->session->get('ID_PANTI');
+          if ($_POST['sumberPemasukan'] == "sumber-donatur") {
+            $id_donatur = $_POST['idDonatur'];
+            $mdonatur = new Donatur();
+            $dataDonatur = $mdonatur->where(['id' => $id_donatur, 'deleted_at' => null])->get()->getRowArray();
+            $nama = $dataDonatur['nama'];
+          } else {
+            $id_donatur = null;
+            $nama = $_POST['sumberLainnya'];
+          }
+          $dateParts = explode('/', $_POST['tanggal']);
+          $day = $dateParts[0];
+          $month = $dateParts[1];
+          $year = $dateParts[2];
+          $tanggal = $year . "-" . $month . "-" . $day;
+          $input_pemasukan = array(
+            'id_panti' => $id_panti,
+            'sumber' => $_POST['sumberPemasukan'],
+            'id_donatur' => $id_donatur,
+            'nama' => $nama,
+            'tanggal_pemasukan' => date("Y-m-d", strtotime($tanggal)),
+            'jumlah' => $_POST['jumlah'],
+            'keterangan' => $_POST['keterangan']
+          );
+          $mpemasukan = new ModelsPemasukan();
+          $data['insert'] = $mpemasukan->save($input_pemasukan);
+          $lastInsertId = $this->db->insertID();
+          if (!empty($_FILES['fileUpload']['name'])) {
+            $files = $this->request->getFiles();
+            $nameGambar = [];
+            if ($files['fileUpload']->isValid() && !$files['fileUpload']->hasMoved()) {
+              $newName = $files['fileUpload']->getRandomName();
+              array_push($nameGambar, $newName);
+              $files['fileUpload']->move(FCPATH . 'uploads/file_pemasukan', $newName);
+            }
+            $this->db->table("pemasukan")->update(['file' => json_encode($nameGambar)], ['id' => $lastInsertId]);
+          }
         }
       }
       echo json_encode($data);
@@ -174,23 +191,44 @@ class Pemasukan extends BaseController
         "update" => $updateFile
       ];
       echo json_encode($data);
-    } elseif ($_GET['act'] == "update_donatur") {
+    } elseif ($_GET['act'] == "update_pemasukan") {
       $validationRule = [
-        'namaDonatur' => [
-          'label' => 'Nama donatur',
+        'tanggal' => [
+          'label' => 'Tanggal',
           'rules' => 'required'
-        ]
+        ],
+        'sumberPemasukan' => [
+          'label' => 'Sumber pemasukan',
+          'rules' => 'required'
+        ],
+        'jumlah' => [
+          'label' => 'Jumlah',
+          'rules' => 'required|numeric'
+        ],
       ];
 
-      if (!empty($_FILES['fotoDonatur']['name'])) {
-        $validationRule['fotoDonatur'] = [
-          'label' => 'Foto',
+      if ($_POST['sumberPemasukan'] == "sumber-donatur") {
+        $validationRule['idDonatur'] = [
+          'label' => 'Donatur',
+          'rules' => 'required'
+        ];
+      } else {
+        $validationRule['sumberLainnya'] = [
+          'label' => 'Sumber lainnya',
+          'rules' => 'required'
+        ];
+      }
+
+      if (!empty($_FILES['fileUpload']['name'])) {
+        $validationRule['fileUpload'] = [
+          'label' => 'File',
           'rules' => [
-            'mime_in[fotoDonatur,image/jpg,image/jpeg,image/png,image/webp]',
-            'max_size[fotoDonatur,1024]',
+            'mime_in[fileUpload,image/jpg,image/jpeg,image/png,image/webp,application/pdf]',
+            'max_size[fileUpload,3024]',
           ],
         ];
       }
+
       if (!$this->validate($validationRule)) {
         $notempty = [];
         foreach ($_POST as $name => $val) {
@@ -203,33 +241,57 @@ class Pemasukan extends BaseController
           'errors' => $this->validator->getErrors()
         ];
       } else {
-        $id_panti = $this->session->get('ID_PANTI');
-        $input_donatur = array(
-          'nama' => $_POST['namaDonatur'],
-          'nohp' => $_POST['nohp'],
-          'rt' => $_POST['rt'],
-          'rw' => $_POST['rw'],
-          'desa' => $_POST['desa'],
-          'kecamatan' => $_POST['kecamatan'],
-          'kabupaten' => $_POST['kabupaten'],
-          'provinsi' => $_POST['provinsi'],
-          'negara' => "Indonesia"
-        );
-        $mdonatur = new ModelsDonatur();
-        $updateData = $this->db->table("donatur")->update($input_donatur, ['id' => $_POST['idDonatur']]);
-        if (!empty($_FILES['fotoDonatur']['name'])) {
-          $files = $this->request->getFiles();
-          $nameGambar = [];
-          if ($files['fotoDonatur']->isValid() && !$files['fotoDonatur']->hasMoved()) {
-            $newName = $files['fotoDonatur']->getRandomName();
-            array_push($nameGambar, $newName);
-            $files['fotoDonatur']->move(FCPATH . 'uploads/foto_donatur', $newName);
+        if ($_POST['idDonatur'] == "donatur-baru") {
+          $notempty = [];
+          foreach ($_POST as $name => $val) {
+            if (!empty($val)) {
+              array_push($notempty, $name);
+            }
           }
-          $this->db->table("donatur")->update(['foto' => json_encode($nameGambar)], ['id' => $_POST['idDonatur']]);
+          $data = [
+            'notempty' => $notempty,
+            'errors' => ['idDonatur' => 'Mohon pilih donatur']
+          ];
+        } else {
+          $id_panti = $this->session->get('ID_PANTI');
+          if ($_POST['sumberPemasukan'] == "sumber-donatur") {
+            $id_donatur = $_POST['idDonatur'];
+            $mdonatur = new Donatur();
+            $dataDonatur = $mdonatur->where(['id' => $id_donatur, 'deleted_at' => null])->get()->getRowArray();
+            $nama = $dataDonatur['nama'];
+          } else {
+            $id_donatur = null;
+            $nama = $_POST['sumberLainnya'];
+          }
+          $dateParts = explode('/', $_POST['tanggal']);
+          $day = $dateParts[0];
+          $month = $dateParts[1];
+          $year = $dateParts[2];
+          $tanggal = $year . "-" . $month . "-" . $day;
+          $input_pemasukan = array(
+            'id_panti' => $id_panti,
+            'sumber' => $_POST['sumberPemasukan'],
+            'id_donatur' => $id_donatur,
+            'nama' => $nama,
+            'tanggal_pemasukan' => date("Y-m-d", strtotime($tanggal)),
+            'jumlah' => $_POST['jumlah'],
+            'keterangan' => $_POST['keterangan']
+          );
+          $updateData = $this->db->table("pemasukan")->update($input_pemasukan, ['id' => $_POST['idPemasukan']]);
+          if (!empty($_FILES['fileUpload']['name'])) {
+            $files = $this->request->getFiles();
+            $nameGambar = [];
+            if ($files['fileUpload']->isValid() && !$files['fileUpload']->hasMoved()) {
+              $newName = $files['fileUpload']->getRandomName();
+              array_push($nameGambar, $newName);
+              $files['fileUpload']->move(FCPATH . 'uploads/file_pemasukan', $newName);
+            }
+            $this->db->table("pemasukan")->update(['file' => json_encode($nameGambar)], ['id' => $_POST['idPemasukan']]);
+          }
+          $data = [
+            "update" => $updateData
+          ];
         }
-        $data = [
-          "update" => $updateData
-        ];
       }
       echo json_encode($data);
     }

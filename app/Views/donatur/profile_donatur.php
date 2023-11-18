@@ -23,8 +23,16 @@
 					<div class="card">
 						<div class="card-body">
 							<div class="d-flex flex-column align-items-center text-center">
-								<?php $gambar = json_decode($donatur['foto']); ?>
-								<img src="<?= base_url() ?>/uploads/foto_donatur/<?= $gambar[0] ?>" alt="Admin" class="rounded-circle p-1 bg-primary" width="200" height="200" style="object-fit: cover;">
+								<?php $gambar = json_decode($donatur['foto']);
+								if (isset($gambar)) :
+									if (sizeof($gambar) != 0) : ?>
+										<img src="<?= base_url() ?>uploads/foto_donatur/<?= $gambar[0] ?>" alt="Admin" class="rounded-circle p-1 bg-primary" width="200" height="200" style="object-fit: cover;">
+									<?php else : ?>
+										<img src="<?= base_url() ?>images/default-product.png" alt="Admin" class="rounded-circle p-1 bg-primary" width="200" height="200" style="object-fit: cover;">
+									<?php endif; ?>
+								<?php else : ?>
+									<img src="<?= base_url() ?>images/default-product.png" alt="Admin" class="rounded-circle p-1 bg-primary" width="200" height="200" style="object-fit: cover;">
+								<?php endif; ?>
 								<div class="mt-3">
 									<h4><?= $donatur['nama'] ?></h4>
 									<p class="text-secondary mb-1"><?= $donatur['nohp'] ?></p>

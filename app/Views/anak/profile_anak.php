@@ -23,30 +23,33 @@
 					<div class="card">
 						<div class="card-body">
 							<div class="d-flex flex-column align-items-center text-center">
-								<?php $gambar = json_decode($anak['foto']); ?>
-								<img src="<?= base_url() ?>/uploads/foto_anak/<?= $gambar[0] ?>" alt="Admin" class="rounded-circle p-1 bg-primary" width="200" height="200" style="object-fit: cover;">
+
+								<?php $gambar = json_decode($anak['foto']);
+								if (isset($gambar)) :
+									if (sizeof($gambar) != 0) : ?>
+										<img src="<?= base_url() ?>uploads/foto_anak/<?= $gambar[0] ?>" alt="Admin" class="rounded-circle p-1 bg-primary" width="200" height="200" style="object-fit: cover;">
+									<?php else : ?>
+										<img src="<?= base_url() ?>images/default-product.png" alt="Admin" class="rounded-circle p-1 bg-primary" width="200" height="200" style="object-fit: cover;">
+									<?php endif; ?>
+								<?php else : ?>
+									<img src="<?= base_url() ?>images/default-product.png" alt="Admin" class="rounded-circle p-1 bg-primary" width="200" height="200" style="object-fit: cover;">
+								<?php endif; ?>
 								<div class="mt-3">
 									<h4>NIP: <?= $anak['nip'] ?><br><?= $anak['nama'] ?></h4>
 									<p class="text-secondary mb-1"><?= $anak['status_anak'] . ", " . $anak['status_panti'] ?></p>
 									<?php
 									// The birthdate in the format "YYYY-MM-DD"
 									$birthdate = date("Y-m-d", strtotime($anak['tanggal_lahir']));
-
 									// Create a DateTime object for the birthdate
 									$birthDate = new DateTime($birthdate);
-
 									// Get the current date
 									$currentDate = new DateTime();
-
 									// Calculate the interval between the birthdate and the current date
 									$age = $currentDate->diff($birthDate);
-
 									// Access the "years" property of the $age object to get the age
 									$ageYears = $age->y;
 									$ageMonths = $age->m;
 									$ageDays = $age->d;
-
-									// Display the age
 									?>
 									<p class="text-muted font-size-sm">Umur: <?= $ageYears ?> Tahun <?= $ageMonths ?> Bulan <?= $ageDays ?> Hari</p>
 									<!-- <button class="btn btn-primary">Follow</button>

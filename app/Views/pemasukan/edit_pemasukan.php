@@ -24,7 +24,7 @@
       <h5 class="card-title">Edit Data Pemasukan</h5>
       <hr />
       <div class="form-body mt-4">
-        <form id="formDonatur" enctype="multipart/form-data">
+        <form id="formPemasukan" enctype="multipart/form-data">
           <div class="row">
             <div class="col-lg-12">
               <div class="border border-3 p-4 rounded">
@@ -34,6 +34,7 @@
                       <p class="text-danger">* Wajib diisi</p>
                       <label for="tanggal" class="form-label">Tanggal<span class="text-danger">*</span></label>
                       <div class="input-group mb-3">
+                        <input type="text" id="idPemasukan" name="idPemasukan" value="<?= $pemasukan['id'] ?>" hidden>
                         <input class="result form-control" type="text" id="tanggal" name="tanggal" placeholder="Masukkan tanggal pemasukan" value="<?= date("d/m/Y", strtotime($pemasukan['tanggal_pemasukan'])) ?>" required> <span class="input-group-text" id="basic-addon2"><i class="bx bx-calendar-exclamation"></i></span>
                       </div>
                     </div>
@@ -45,33 +46,41 @@
                   $sumber = ($pemasukan == "sumber")
                   ?>
                   <label class="form-label">Sumber Pemasukan<span class="text-danger">*</span></label>
-                  <select class="form-control" id="sumberPemasukan" name="sumberPemasukan" required="true" disabled>
+                  <select class="form-control" id="sumberPemasukan" name="sumberPemasukan" required="true">
                     <option value="sumber-donatur" <?= ($pemasukan['sumber'] == "sumber-donatur") ? "selected" : ""; ?>>Donatur</option>
                     <option value="sumber-lain" <?= ($pemasukan['sumber'] != "sumber-donatur") ? "selected" : ""; ?>>Sumber Lainnya</option>
                   </select>
                   <div id="validation-sumberPemasukan" class="invalid-feedback"></div>
                 </div>
-                <?php if ($pemasukan['sumber'] == "sumber-lain") : ?>
-                  <div class="mb-3" id="formSumberLainnya">
-                    <div class="row">
-                      <div class="col-12">
-                        <input type="text" class="form-control" id="sumberLainnya" name="sumberLainnya" placeholder="Masukkan sumber lainnya" value="<?= $pemasukan['nama'] ?>" disabled>
-                      </div>
+                <div class="mb-3" id="formSumberLainnya">
+                  <div class="row">
+                    <div class="col-12">
+                      <input type="text" class="form-control" id="sumberLainnya" name="sumberLainnya" placeholder="Masukkan sumber lainnya" value="<?= $pemasukan['nama'] ?>">
                     </div>
-                    <div id="validation-sumberLainnya" class="invalid-feedback"></div>
                   </div>
-                <?php endif; ?>
-                <?php if ($pemasukan['sumber'] == "sumber-donatur") : ?>
-                  <div class="mb-3" id="formSumberDonatur" style="display: block;">
-                    <label class="form-label">Nama Donatur<span class="text-danger">*</span></label>
-                    <select class="single-select" id="idDonatur" name="idDonatur" disabled>
-                      <?php
-                      $this->db = \Config\Database::connect();
-                      $donatur = $this->db->table("donatur")->select("*")->where(["id" => $pemasukan['id_donatur'], "deleted_at" => null])->get()->getRowArray(); ?>
-                      <option value="<?= $donatur['id'] ?>" selected><?= $donatur['nama'] ?></option>
-                    </select>
-                  </div>
-                <?php endif; ?>
+                  <div id="validation-sumberLainnya" class="invalid-feedback"></div>
+                </div>
+                <div class="mb-3" id="formSumberDonatur" style="display: block;">
+                  <label class="form-label">Nama Donatur<span class="text-danger">*</span></label>
+                  <select class="single-select form-control" id="idDonatur" name="idDonatur">
+                    <option></option>
+                    <option value="donatur-baru">Tambah Donatur Baru (jika belum tersedia)</option>
+                    <?php foreach ($alldonatur as $data) : ?>
+                      <option value="<?= $data['id'] ?>" <?= ($data['id'] == $pemasukan['id_donatur']) ? "selected" : "" ?>>
+                        <?= $data['nama'] . " (" . $data['nohp'] . ") - " ?>
+                        <?= (isset($data['desa']) ? $data['desa'] : "")
+                          . (isset($data['rt']) ? " RT" . $data['rt'] : "")
+                          . (isset($data['rw']) ? " RW" . $data['rw'] : "")
+                          . (isset($data['kecamatan']) ? ", Kec. " . $data['kecamatan'] : "")
+                          . (isset($data['kabupaten']) ? ", Kab. " . $data['kabupaten'] : "")
+                          . " - "
+                          . (isset($data['provinsi']) ? "" . $data['provinsi'] : "");
+                        ?>
+                      </option>
+                    <?php endforeach; ?>
+                  </select>
+                  <div id="validation-idDonatur" class="invalid-feedback"></div>
+                </div>
                 <div class="mb-3" id="btnTambahDonatur" style="display: none;">
                   <a href="<?= base_url() ?>donatur/tambah_donatur" class="btn btn-primary px-5 radius-30">Tambah Donatur Baru</a>
                 </div>
@@ -142,13 +151,27 @@
 <script src="<?= base_url() ?>assets/plugins/bootstrap-material-datetimepicker/js/moment.min.js"></script>
 <script src="<?= base_url() ?>assets/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.min.js"></script>
 <script type="text/javascript">
+  function sumber_pemasukan() {
+    var selectedValue = $("#sumberPemasukan").val();
+    if (selectedValue == "sumber-lain") {
+      $("#formSumberDonatur").css("display", "none")
+      $("#idDonatur").attr("required", false);
+      $("#sumberLainnya").attr("required", true);
+      $("#formSumberLainnya").css("display", "block")
+    } else {
+      $("#formSumberDonatur").css("display", "block")
+      $("#idDonatur").attr("required", true);
+      $("#sumberLainnya").attr("required", false);
+      $("#formSumberLainnya").css("display", "none")
+    }
+  }
   $(document).ready(function() {
+    sumber_pemasukan();
 
     $('#tanggal').bootstrapMaterialDatePicker({
       format: 'DD/MM/YYYY',
       time: false,
     });
-
 
     $('#sumberPemasukan').select2({
       theme: 'bootstrap4',
@@ -160,6 +183,19 @@
       width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
       placeholder: "Pilih Donatur",
       allowClear: true,
+    });
+
+    $("#sumberPemasukan").on("change", function(e) {
+      sumber_pemasukan();
+    });
+
+    $("#idDonatur").on("change", function(e) {
+      var selectedValue = $(this).val();
+      if (selectedValue == "donatur-baru") {
+        $("#btnTambahDonatur").css("display", "block")
+      } else {
+        $("#btnTambahDonatur").css("display", "none")
+      }
     });
 
 
@@ -197,11 +233,11 @@
       });
     });
 
-    $("#formDonatur").on('submit', function(event) {
+    $("#formPemasukan").on('submit', function(event) {
       event.preventDefault();
       var formdata = new FormData(this);
       $.ajax({
-        url: '<?= base_url() ?>donatur/proses?act=update_donatur',
+        url: '<?= base_url() ?>pemasukan/proses?act=update_pemasukan',
         type: 'POST',
         data: formdata,
         processData: false,
@@ -215,15 +251,18 @@
             for (i = 0; i < notempty.length; i++) {
               $("[name=" + notempty[i] + "]").attr("class", "form-control");
               $("#validation-" + notempty[i]).html('');
+              $("#validation-" + name[i]).css("display", "none");
             }
             for (i = 0; i < name.length; i++) {
               $("[name=" + name[i] + "]").attr("class", "form-control is-invalid");
               $("#validation-" + name[i]).attr("class", "invalid-feedback");
               $("#validation-" + name[i]).html(result.errors[name[i]]);
+              $("#validation-" + name[i]).css("display", "block");
             }
+            $('select').css("display", "none");
           } else {
             if (result.update == true) {
-              window.location.href = "<?= base_url('donatur/profile?id=' . $pemasukan['id'] . '') ?>";
+              window.location.href = "<?= base_url('pemasukan') ?>";
             }
           }
         },

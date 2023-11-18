@@ -77,6 +77,12 @@
   <!--app JS-->
   <script src="<?= base_url() ?>assets/js/app.js"></script>
   <script type="text/javascript">
+    function formatRupiah(angka) {
+      var reverse = angka.toString().split('').reverse().join('');
+      var ribuan = reverse.match(/\d{1,3}/g);
+      var hasil = ribuan.join('.').split('').reverse().join('');
+      return 'Rp ' + hasil;
+    }
     $(document).ready(function() {
       $("body").tooltip({
         selector: '[data-bs-toggle="tooltip"]'

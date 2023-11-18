@@ -42,7 +42,6 @@
                           <div class="input-group mb-3">
                             <input class="result form-control" type="text" id="tanggal" name="tanggal" placeholder="Masukkan tanggal pemasukan" value="<?= date("d/m/Y") ?>" required> <span class="input-group-text" id="basic-addon2"><i class="bx bx-calendar-exclamation"></i></span>
                           </div>
-
                         </div>
                       </div>
                       <div id="validation-tanggal" class="invalid-feedback"></div>

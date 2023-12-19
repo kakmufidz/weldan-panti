@@ -79,14 +79,10 @@ class Keuangan extends BaseController
                 ];
             } else {
                 $id_panti = $this->session->get('ID_PANTI');
-                $dateParts = explode('/', $_POST['tanggal']);
-                $day = $dateParts[0];
-                $month = $dateParts[1];
-                $year = $dateParts[2];
-                $tanggal = $year . "-" . $month . "-" . $day;
+                $tanggal = date("Y-m-d", strtotime(str_replace("/", "-", $_POST['tanggal'])));
                 $input_data = [
                     'id_panti' => $id_panti,
-                    'tanggal_pengeluaran' => date("Y-m-d", strtotime($tanggal)),
+                    'tgl_pengeluaran' => $tanggal,
                     'judul' => $_POST['judul'],
                     'total_pengeluaran' => "",
                     'keterangan' => $_POST['keterangan'],

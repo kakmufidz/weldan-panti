@@ -50,11 +50,21 @@
                 <div class="mb-3" id="listPengeluaran">
                   <label for="listPengeluaran" class="form-label">List Pengeluaran<span class="text-danger">*</span></label>
                   <div class="row mx-3" id="itemPengeluaran1">
-                    <div class="col-6">
+                    <div class="col-4">
+                      <label for="item" class="form-label">Item<span class="text-danger">*</span></label>
                       <input type="text" class="form-control" id="item" name="item[]" placeholder="Masukkan item pengeluaran" required>
                     </div>
-                    <div class="col-4">
-                      <input type="number" class="form-control" id="jumlah" name="jumlah[]" placeholder="Masukkan jumlah pengeluaran" required>
+                    <div class="col-2">
+                      <label for="harga" class="form-label">Harga Satuan<span class="text-danger">*</span></label>
+                      <input type="number" class="form-control num_validation" id="harga" name="harga[]" placeholder="Rp. 0" required>
+                    </div>
+                    <div class="col-2">
+                      <label for="jumlah" class="form-label">Jumlah<span class="text-danger">*</span></label>
+                      <input type="number" class="form-control num_validation" id="jumlah" name="jumlah[]" placeholder="0" required>
+                    </div>
+                    <div class="col-2">
+                      <label for="totalHarga" class="form-label">Total Harga<span class="text-danger">*</span></label>
+                      <input type="number" class="form-control num_validation" style="background-color: #cdcdcd;" id="totalHarga" name="totalHarga[]" placeholder="Rp. 0" required readonly>
                     </div>
                   </div>
                   <div class="row ms-3">
@@ -74,6 +84,7 @@
                     </div>
                     <div class="col-6 d-flex align-items-center">
                       <h3 id="totalItem">Rp 0</h3>
+                      <input type="hidden" id="totalPengeluaran" name="totalPengeluaran">
                     </div>
                   </div>
                 </div>
@@ -114,7 +125,7 @@
 <script src="<?= base_url() ?>assets/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.min.js"></script>
 <script type="text/javascript">
   function count_total() {
-    var jumlah = $('input[name="jumlah[]"]').map(function() {
+    var jumlah = $('input[name="totalHarga[]"]').map(function() {
       return $(this).val();
     }).get();
 
@@ -126,6 +137,23 @@
     }, 0);
 
     $('#totalItem').html(formatRupiah(total));
+    $('#totalPengeluaran').val(total);
+  }
+
+  function num_validation() {
+    $('.num_validation').on('change', function() {
+      let inputValue = $(this).val();
+      if (inputValue < 1) {
+        $(this).val('1');
+      }
+
+      var idItem = $(this).parent().parent().attr('id');
+      let harga = $('#' + idItem).find('#harga').val();
+      let jumlah = $('#' + idItem).find('#jumlah').val();
+      var totalHarga = harga * jumlah
+      $('#' + idItem).find('#totalHarga').val(totalHarga);
+      count_total();
+    });
   }
 
   $(document).ready(function() {
@@ -140,11 +168,17 @@
       }).get();
       var next_item = items.length + 1;
       var html = '<div class="row mx-3 mt-1" id="itemPengeluaran' + next_item + '">';
-      html += '<div class="col-6">';
+      html += '<div class="col-4">';
       html += '<input type="text" class="form-control" id="item" name="item[]" placeholder="Masukkan item pengeluaran" required>';
       html += '</div>';
-      html += '<div class="col-4">';
-      html += '<input type="number" class="form-control" id="jumlah" name="jumlah[]" placeholder="Masukkan jumlah pengeluaran" required val="0">';
+      html += '<div class="col-2">';
+      html += '<input type="number" class="form-control num_validation" id="harga" name="harga[]" placeholder="Rp. 0" required>';
+      html += '</div>';
+      html += '<div class="col-2">';
+      html += '<input type="number" class="form-control num_validation" id="jumlah" name="jumlah[]" placeholder="0" required>';
+      html += '</div>';
+      html += '<div class="col-2">';
+      html += '<input type="number" class="form-control num_validation" style="background-color: #cdcdcd;" id="totalHarga" name="totalHarga[]" placeholder="Rp. 0" required readonly>';
       html += '</div>';
       html += '<div class="col-2 d-flex align-items-center">';
       html += '<a href="javascript:;" class="text-danger ms-3 btnHapusItem" data-id="' + next_item + '"><i class="bx bx-x"></i> Hapus</a>';
@@ -152,6 +186,7 @@
       html += '</div>';
       $('#itemPengeluaran' + items.length).after(html);
       count_total();
+      num_validation();
     });
 
     $('#listPengeluaran').on('click', '.btnHapusItem', function() {
@@ -162,6 +197,10 @@
 
     $('#listPengeluaran').on('keyup', 'input[name="jumlah[]"]', function() {
       count_total();
+    });
+
+    $('.num_validation').on('change', function() {
+      num_validation();
     });
 
     $("#formPengeluaran").on('submit', function(event) {

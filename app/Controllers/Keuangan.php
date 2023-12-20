@@ -12,6 +12,7 @@ class Keuangan extends BaseController
         $this->validation = \Config\Services::validation();
         $this->session = session();
         $this->db = \Config\Database::connect();
+        helper('currency_helper');
     }
 
     public function index()
@@ -32,6 +33,37 @@ class Keuangan extends BaseController
             "session" => $this->session->get()
         ];
         return view('keuangan/tambah_keuangan', $data);
+    }
+
+    public function get_data()
+    {
+        if ($this->session->get('NAMA') == null)  return redirect()->to(base_url());
+        if ($_GET['act'] == "tabel-keuangan") {
+            $id_panti = $this->session->get('ID_PANTI');
+            $mpengeluaran = new Pengeluaran();
+            $dataKeuangan = $mpengeluaran->where(['id_panti' => $id_panti, 'deleted_at' => null])->get()->getResultArray();
+            $data = [
+                "keuangan" => $dataKeuangan
+            ];
+            return view('keuangan/tabel_keuangan', $data);
+        }
+    }
+
+    public function view()
+    {
+        if ($this->session->get('NAMA') == null)  return redirect()->to(base_url());
+        if (!isset($_GET['id'])) return redirect()->to(base_url());
+        $mpengeluaran = new Pengeluaran();
+        $mitem = new ItemPengeluaran();
+        $dataPengeluaran = $mpengeluaran->where(['id' => $_GET['id'], 'deleted_at' => null])->get()->getRowArray();
+        $dataItem = $mitem->where(['id_pengeluaran' => $_GET['id'], 'deleted_at' => null])->get()->getResultArray();
+        $data = [
+            "page_title" => "Detail Pengeluaran",
+            "session" => $this->session->get(),
+            "pengeluaran" => $dataPengeluaran,
+            "dataItem" => $dataItem,
+        ];
+        return view('keuangan/view_pengeluaran', $data);
     }
 
     public function proses()
@@ -84,7 +116,7 @@ class Keuangan extends BaseController
                     'id_panti' => $id_panti,
                     'tgl_pengeluaran' => $tanggal,
                     'judul' => $_POST['judul'],
-                    'total_pengeluaran' => "",
+                    'total_pengeluaran' => $_POST['totalPengeluaran'],
                     'keterangan' => $_POST['keterangan'],
                 ];
                 $mpengeluaran = new Pengeluaran();
@@ -94,11 +126,15 @@ class Keuangan extends BaseController
                 $countItem = sizeof($_POST['item']);
                 for ($i = 0; $i < $countItem; $i++) {
                     $item = $_POST['item'][$i];
+                    $harga = $_POST['harga'][$i];
                     $jumlah = $_POST['jumlah'][$i];
+                    $totalHarga = $_POST['totalHarga'][$i];
                     $data_item = [
                         'id_pengeluaran' => $lastInsertId,
                         'item' => $item,
                         'jumlah' => $jumlah,
+                        'harga' => $harga,
+                        'total_harga' => $totalHarga,
                     ];
                     $mitem->save($data_item);
                 }
@@ -116,8 +152,8 @@ class Keuangan extends BaseController
                 }
             }
             echo json_encode($data);
-        } elseif ($_GET['act'] == "delete_donatur") {
-            $delete =  $this->db->table("donatur")->update(['deleted_at' => date("Y-m-d H:i:s")], ['id' => $_POST['id']]);
+        } elseif ($_GET['act'] == "delete_keuangan") {
+            $delete =  $this->db->table("pengeluaran")->update(['deleted_at' => date("Y-m-d H:i:s")], ['id' => $_POST['id']]);
             $data = [
                 "delete" => $delete
             ];

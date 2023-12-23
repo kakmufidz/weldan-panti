@@ -27,8 +27,9 @@
               <div class="border border-3 p-4 rounded">
                 <div class="mb-3">
                   <p class="text-danger">* Wajib diisi</p>
-                  <label for="nipAnak" class="form-label">Nomor Induk Panti*</label>
-                  <input type="text" class="form-control" id="nipAnak" name="nipAnak" placeholder="Masukkan NIP anak" value="<?= $anak['nip'] ?>" required readonly>
+                  <label for="idAnak" class="form-label">Nomor Induk Panti*</label>
+                  <input type="hidden" class="form-control" id="idAnak" name="idAnak" placeholder="Masukkan NIP anak" value="<?= $anak['id'] ?>" required>
+                  <input type="text" class="form-control" id="nipAnak" name="nipAnak" placeholder="Masukkan NIP anak" value="<?= $anak['nip'] ?>" required>
                   <div id="validation-nipAnak" class="invalid-feedback"></div>
                 </div>
                 <div class="mb-3">
@@ -232,7 +233,8 @@
             }
           } else {
             if (result.update == true) {
-              window.location.href = "<?= base_url('anak/profile?nip=' . $anak['nip'] . '') ?>";
+              var nipAnak = $('#nipAnak').val();
+              window.location.href = "<?= base_url() ?>anak/profile?nip=" + nipAnak;
             }
           }
         },

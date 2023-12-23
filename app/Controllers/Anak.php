@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Anak_asuh;
+use App\Models\Dokumen_anak;
 
 class Anak extends BaseController
 {
@@ -34,15 +35,31 @@ class Anak extends BaseController
     return view('anak/tambah_anak', $data);
   }
 
-  public function profile()
+  public function addDokumen()
   {
     if ($this->session->get('NAMA') == null)  return redirect()->to(base_url());
     $manak = new Anak_asuh();
     $dataAnak = $manak->where(['nip' => $_GET['nip'], 'deleted_at' => null])->get()->getRowArray();
     $data = [
+      "page_title" => "Tambah Anak Asuh",
+      "session" => $this->session->get(),
+      "anak" => $dataAnak,
+    ];
+    return view('anak/add_dokumen', $data);
+  }
+
+  public function profile()
+  {
+    if ($this->session->get('NAMA') == null)  return redirect()->to(base_url());
+    $manak = new Anak_asuh();
+    $mdokanak = new Dokumen_anak();
+    $dataAnak = $manak->where(['nip' => $_GET['nip'], 'deleted_at' => null])->get()->getRowArray();
+    $dokAnak = $mdokanak->where(['id_anak' => $dataAnak['id'], 'deleted_at' => null])->get()->getResultArray();
+    $data = [
       "page_title" => "Profile Anak",
       "session" => $this->session->get(),
-      "anak" => $dataAnak
+      "anak" => $dataAnak,
+      "dokumen_anak" => $dokAnak
     ];
     return view('anak/profile_anak', $data);
   }
@@ -91,7 +108,7 @@ class Anak extends BaseController
           'rules' => 'required'
         ],
         'tanggalLahir' => [
-          'label' => 'Langgal lahir',
+          'label' => 'Tanggal lahir',
           'rules' => 'required'
         ],
         'rt' => [
@@ -289,6 +306,7 @@ class Anak extends BaseController
         $id_panti = $this->session->get('ID_PANTI');
         $input_anak = array(
           'id_panti' => $id_panti,
+          'nip' => $_POST['nipAnak'],
           'nama' => $_POST['namaAnak'],
           'tempat_lahir' => $_POST['tempatLahir'],
           'tanggal_lahir' => $_POST['tanggalLahir'],
@@ -304,7 +322,7 @@ class Anak extends BaseController
           'status_anak' => $_POST['statusAnak'],
         );
         $manak = new Anak_asuh();
-        $updateData = $this->db->table("anak_asuh")->update($input_anak, ['nip' => $_POST['nipAnak']]);
+        $updateData = $this->db->table("anak_asuh")->update($input_anak, ['id' => $_POST['idAnak']]);
         if (!empty($_FILES['fotoAnak']['name'])) {
           $files = $this->request->getFiles();
           $nameGambar = [];
@@ -313,12 +331,62 @@ class Anak extends BaseController
             array_push($nameGambar, $newName);
             $files['fotoAnak']->move(FCPATH . 'uploads/foto_anak', $newName);
           }
-          $this->db->table("anak_asuh")->update(['foto' => json_encode($nameGambar)], ['nip' => $_POST['nipAnak']]);
+          $this->db->table("anak_asuh")->update(['foto' => json_encode($nameGambar)], ['id' => $_POST['idAnak']]);
         }
         $data = [
           "update" => $updateData
         ];
       }
+      echo json_encode($data);
+    } elseif ($_GET['act'] == "add_dokumen") {
+      $validationRule = [
+        'judulDokumen' => [
+          'label' => 'Judul Dokumen',
+          'rules' => 'required'
+        ],
+        'file' => [
+          'label' => 'File Dokumen',
+          'rules' => [
+            'mime_in[file,image/jpg,image/jpeg,image/png,image/webp,application/pdf]',
+            'max_size[file,1024]',
+          ],
+        ]
+      ];
+
+      if (!empty($_FILES['file']['name'])) {
+      }
+      if (!$this->validate($validationRule)) {
+        $notempty = [];
+        foreach ($_POST as $name => $val) {
+          if (!empty($val)) {
+            array_push($notempty, $name);
+          }
+        }
+        $data = [
+          'notempty' => $notempty,
+          'errors' => $this->validator->getErrors()
+        ];
+      } else {
+        $input_data = array(
+          'id_anak' => $_POST['idAnak'],
+          'judul' => $_POST['judulDokumen']
+        );
+        $mdokanak = new Dokumen_anak();
+        $data['insert'] = $mdokanak->save($input_data);
+        $lastInsertId = $this->db->insertID();
+        $files = $this->request->getFiles();
+        if ($files['file']->isValid() && !$files['file']->hasMoved()) {
+          $newName = $files['file']->getRandomName();
+          $files['file']->move(FCPATH . 'uploads/dokumen_anak', $newName);
+          $this->db->table("dokumen_anak")->update(['file' => $newName], ['id' => $lastInsertId]);
+        }
+      }
+      echo json_encode($data);
+    } elseif ($_GET['act'] == "delete_dokumen") {
+      $delete =  $this->db->table("dokumen_anak")->update(['deleted_at' => date("Y-m-d H:i:s")], ['id' => $_POST['id']]);
+      $data = [
+        "delete" => $delete
+      ];
       echo json_encode($data);
     }
   }

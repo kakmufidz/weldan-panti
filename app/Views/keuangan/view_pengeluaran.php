@@ -79,7 +79,7 @@
                         <?php $file = json_decode($pengeluaran['file']);
                         if (isset($file)) :
                             if (sizeof($file) != 0) : ?>
-                                <div class="imageuploadify well" id="listFile" style="min-height: 0;">
+                                <div class="imageuploadify well mt-3" id="listFile" style="min-height: 0;">
                                     <div class="imageuploadify-images-list">
                                         <?php $no = 1;
                                         foreach ($file as $itemGambar) : ?>
@@ -88,7 +88,7 @@
                                                 <?php if (in_array($extension, ["jpg", "png", "jpeg", "webp"])) : ?>
                                                     <a target="_blank" href="<?= base_url() ?>uploads/pengeluaran/<?= $itemGambar ?>"><img src="<?= base_url() ?>uploads/pengeluaran/<?= $itemGambar ?>" alt="File pengeluaran"></a>
                                                 <?php else : ?>
-                                                    <a href="<?= base_url() ?>uploads/file_pemasukan/<?= $itemGambar ?>"><img src="<?= base_url() ?>uploads/file_pemasukan/document.jpg" alt="File pengeluaran"></a>
+                                                    <a href="<?= base_url() ?>uploads/pengeluaran/<?= $itemGambar ?>"><img src="<?= base_url() ?>uploads/file_pemasukan/document.jpg" alt="File pengeluaran"></a>
                                                 <?php endif; ?>
                                             </div>
                                         <?php $no++;

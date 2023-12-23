@@ -36,7 +36,7 @@
                     <div class="col-4">
                       <label for="tanggal" class="form-label">Tanggal<span class="text-danger">*</span></label>
                       <div class="input-group mb-3">
-                        <input class="result form-control" type="text" id="tanggal" name="tanggal" placeholder="Masukkan tanggal pemasukan" value="<?= date("d/m/Y") ?>" required> <span class="input-group-text" id="basic-addon2"><i class="bx bx-calendar-exclamation"></i></span>
+                        <input class="result form-control" type="text" id="tanggal" name="tanggal" placeholder="Masukkan tanggal pengeluaran" value="<?= date("d/m/Y") ?>" required> <span class="input-group-text" id="basic-addon2"><i class="bx bx-calendar-exclamation"></i></span>
                       </div>
                     </div>
                   </div>
@@ -76,14 +76,14 @@
                     </div>
                   </div>
                   <div class="row ms-3 mt-2">
-                    <div class="col-4">
+                    <div class="col-6">
                       <a href="javascript:;" class="btn btn-primary" id="btnAddItem"><i class="bx bx-plus me-0"></i> Tambah Item</a>
                     </div>
                     <div class="col-2 d-flex align-items-center">
                       <h4>Total</h4>
                     </div>
-                    <div class="col-6 d-flex align-items-center">
-                      <h3 id="totalItem">Rp 0</h3>
+                    <div class="col-4 d-flex align-items-center">
+                      <h4 id="totalItem">Rp 0</h4>
                       <input type="hidden" id="totalPengeluaran" name="totalPengeluaran">
                     </div>
                   </div>
@@ -109,7 +109,7 @@
           </div><!--end row-->
           <div class="col-12 mt-3">
             <div class="d-grid">
-              <button type="submit" class="btn btn-primary">Simpan Data Donatur</button>
+              <button type="submit" class="btn btn-primary">Simpan Data</button>
             </div>
           </div>
         </form>
@@ -138,22 +138,6 @@
 
     $('#totalItem').html(formatRupiah(total));
     $('#totalPengeluaran').val(total);
-  }
-
-  function num_validation() {
-    $('.num_validation').on('change', function() {
-      let inputValue = $(this).val();
-      if (inputValue < 1) {
-        $(this).val('1');
-      }
-
-      var idItem = $(this).parent().parent().attr('id');
-      let harga = $('#' + idItem).find('#harga').val();
-      let jumlah = $('#' + idItem).find('#jumlah').val();
-      var totalHarga = harga * jumlah
-      $('#' + idItem).find('#totalHarga').val(totalHarga);
-      count_total();
-    });
   }
 
   $(document).ready(function() {
@@ -195,12 +179,18 @@
       count_total()
     });
 
-    $('#listPengeluaran').on('keyup', 'input[name="jumlah[]"]', function() {
-      count_total();
-    });
+    $("#listPengeluaran").on("change", ".num_validation", function() {
+      let inputValue = $(this).val();
+      if (inputValue < 1) {
+        $(this).val('1');
+      }
 
-    $('.num_validation').on('change', function() {
-      num_validation();
+      var idItem = $(this).parent().parent().attr('id');
+      let harga = $('#' + idItem).find('#harga').val();
+      let jumlah = $('#' + idItem).find('#jumlah').val();
+      var totalHarga = harga * jumlah
+      $('#' + idItem).find('#totalHarga').val(totalHarga);
+      count_total();
     });
 
     $("#formPengeluaran").on('submit', function(event) {
@@ -225,7 +215,7 @@
             for (i = 0; i < name.length; i++) {
               $("[name=" + name[i] + "]").attr("class", "form-control is-invalid");
               $("#validation-" + name[i]).attr("class", "invalid-feedback");
-              if (name[i] == "fotoDonatur") {
+              if (name[i] == "fileUpload") {
                 $("#validation-" + name[i]).attr("style", "display:block");
               }
               $("#validation-" + name[i]).html(result.errors[name[i]]);

@@ -66,6 +66,23 @@ class Keuangan extends BaseController
         return view('keuangan/view_pengeluaran', $data);
     }
 
+    public function edit()
+    {
+        if ($this->session->get('NAMA') == null)  return redirect()->to(base_url());
+        if (!isset($_GET['id'])) return redirect()->to(base_url());
+        $mpengeluaran = new Pengeluaran();
+        $mitem = new ItemPengeluaran();
+        $dataPengeluaran = $mpengeluaran->where(['id' => $_GET['id'], 'deleted_at' => null])->get()->getRowArray();
+        $dataItem = $mitem->where(['id_pengeluaran' => $_GET['id'], 'deleted_at' => null])->get()->getResultArray();
+        $data = [
+            "page_title" => "Detail Pengeluaran",
+            "session" => $this->session->get(),
+            "pengeluaran" => $dataPengeluaran,
+            "dataItem" => $dataItem,
+        ];
+        return view('keuangan/edit_pengeluaran', $data);
+    }
+
     public function proses()
     {
         if ($this->session->get('NAMA') == null)  return redirect()->to(base_url());
@@ -80,6 +97,10 @@ class Keuangan extends BaseController
                     'rules' => 'required'
                 ],
                 'item' => [
+                    'label' => 'Item',
+                    'rules' => 'required'
+                ],
+                'harga' => [
                     'label' => 'Item',
                     'rules' => 'required'
                 ],
@@ -158,40 +179,70 @@ class Keuangan extends BaseController
                 "delete" => $delete
             ];
             echo json_encode($data);
-        } elseif ($_GET['act'] == "delete_foto") {
-            $donatur = $this->db->table("donatur")->select("*")->where("id", $_POST['id'])->get()->getRowArray();
-            $gambar = json_decode($donatur['foto']);
-            foreach ($gambar as $key => $value) {
-                if ($_POST['gambar'] == $value) {
-                    unset($gambar[$key]);
+        } elseif ($_GET['act'] == "delete_itemPengeluaran") {
+            $delete =  $this->db->table("item_pengeluaran")->update(['deleted_at' => date("Y-m-d H:i:s")], ['id' => $_POST['id']]);
+            $mitem = new ItemPengeluaran();
+            $item = $mitem->where(['id' => $_POST['id']])->get()->getRowArray();
+            $dataItem = $mitem->select('total_harga')->where(['id_pengeluaran' => $item['id_pengeluaran'], 'deleted_at' => null])->get()->getResultArray();
+            $total = 0;
+            foreach ($dataItem as $harga) {
+                $total += $harga['total_harga'];
+            }
+            $updatetotalpengeluaran = $this->db->table("pengeluaran")->update(['total_pengeluaran' => $total], ['id' => $item['id_pengeluaran']]);
+            $data = [
+                "delete" => $delete
+            ];
+            echo json_encode($data);
+        } elseif ($_GET['act'] == "delete_file") {
+            $pengeluaran = $this->db->table("pengeluaran")->select("*")->where("id", $_POST['id'])->get()->getRowArray();
+            $file = json_decode($pengeluaran['file']);
+            foreach ($file as $key => $value) {
+                if ($_POST['file'] == $value) {
+                    unset($file[$key]);
                 }
             }
-            $updateGambar = $this->db->table("donatur")->update(['foto' => json_encode($gambar)], ['id' => $_POST['id']]);
-            if ($updateGambar) {
-                $fileName = $_POST['gambar'];
-                $uploadedFilePath = FCPATH . 'uploads/foto_donatur/' . $fileName;
+            $updateFile = $this->db->table("pengeluaran")->update(['file' => json_encode($file)], ['id' => $_POST['id']]);
+            if ($updateFile) {
+                $fileName = $_POST['file'];
+                $uploadedFilePath = FCPATH . 'uploads/pengeluaran/' . $fileName;
                 if (file_exists($uploadedFilePath)) {
                     unlink($uploadedFilePath);
                 }
             }
             $data = [
-                "update" => $updateGambar
+                "update" => $updateFile
             ];
             echo json_encode($data);
-        } elseif ($_GET['act'] == "update_donatur") {
+        } elseif ($_GET['act'] == "update_pengeluaran") {
             $validationRule = [
-                'namaDonatur' => [
-                    'label' => 'Nama donatur',
+                'tanggal' => [
+                    'label' => 'Tanggal',
                     'rules' => 'required'
-                ]
+                ],
+                'judul' => [
+                    'label' => 'Judul',
+                    'rules' => 'required'
+                ],
+                'item' => [
+                    'label' => 'Item',
+                    'rules' => 'required'
+                ],
+                'harga' => [
+                    'label' => 'Item',
+                    'rules' => 'required'
+                ],
+                'jumlah' => [
+                    'label' => 'jumlah',
+                    'rules' => 'required'
+                ],
             ];
 
-            if (!empty($_FILES['fotoDonatur']['name'])) {
-                $validationRule['fotoDonatur'] = [
-                    'label' => 'Foto',
+            if (!empty($_FILES['fileUpload']['name'])) {
+                $validationRule['fileUpload'] = [
+                    'label' => 'File',
                     'rules' => [
-                        'mime_in[fotoDonatur,image/jpg,image/jpeg,image/png,image/webp]',
-                        'max_size[fotoDonatur,1024]',
+                        'mime_in[fileUpload,image/jpg,image/jpeg,image/png,image/webp,application/pdf]',
+                        'max_size[fileUpload,1024]',
                     ],
                 ];
             }
@@ -208,28 +259,49 @@ class Keuangan extends BaseController
                 ];
             } else {
                 $id_panti = $this->session->get('ID_PANTI');
-                $input_donatur = array(
-                    'nama' => $_POST['namaDonatur'],
-                    'nohp' => $_POST['nohp'],
-                    'rt' => $_POST['rt'],
-                    'rw' => $_POST['rw'],
-                    'desa' => $_POST['desa'],
-                    'kecamatan' => $_POST['kecamatan'],
-                    'kabupaten' => $_POST['kabupaten'],
-                    'provinsi' => $_POST['provinsi'],
-                    'negara' => "Indonesia"
-                );
-                $mdonatur = new ModelsDonatur();
-                $updateData = $this->db->table("donatur")->update($input_donatur, ['id' => $_POST['idDonatur']]);
-                if (!empty($_FILES['fotoDonatur']['name'])) {
-                    $files = $this->request->getFiles();
-                    $nameGambar = [];
-                    if ($files['fotoDonatur']->isValid() && !$files['fotoDonatur']->hasMoved()) {
-                        $newName = $files['fotoDonatur']->getRandomName();
-                        array_push($nameGambar, $newName);
-                        $files['fotoDonatur']->move(FCPATH . 'uploads/foto_donatur', $newName);
+                $tanggal = date("Y-m-d", strtotime(str_replace("/", "-", $_POST['tanggal'])));
+                $input_data = [
+                    'id_panti' => $id_panti,
+                    'tgl_pengeluaran' => $tanggal,
+                    'judul' => $_POST['judul'],
+                    'total_pengeluaran' => $_POST['totalPengeluaran'],
+                    'keterangan' => $_POST['keterangan'],
+                ];
+                $mpengeluaran = new Pengeluaran();
+                $mitem = new ItemPengeluaran();
+                $updateData = $this->db->table("pengeluaran")->update($input_data, ['id' => $_POST['idPengeluaran']]);
+                $countItem = sizeof($_POST['item']);
+                for ($i = 0; $i < $countItem; $i++) {
+                    $item = $_POST['item'][$i];
+                    $harga = $_POST['harga'][$i];
+                    $jumlah = $_POST['jumlah'][$i];
+                    $totalHarga = $_POST['totalHarga'][$i];
+                    $data_item = [
+                        'id_pengeluaran' => $_POST['idPengeluaran'],
+                        'item' => $item,
+                        'jumlah' => $jumlah,
+                        'harga' => $harga,
+                        'total_harga' => $totalHarga,
+                    ];
+                    if ($_POST['idItemPengeluaran'][$i] == 'new') {
+                        $mitem->save($data_item);
+                    } else {
+                        $this->db->table("item_pengeluaran")->update($data_item, ['id' => $_POST['idItemPengeluaran'][$i]]);
                     }
-                    $this->db->table("donatur")->update(['foto' => json_encode($nameGambar)], ['id' => $_POST['idDonatur']]);
+                }
+                if (!empty($_FILES['fileUpload']['name'][0])) {
+                    $files = $this->request->getFiles();
+                    $pengeluaran = $this->db->table("pengeluaran")->select("*")->where("id", $_POST['idPengeluaran'])->get()->getRowArray();
+                    $file = json_decode($pengeluaran['file']);
+                    $newFile = (is_array($file)) ? $file : $file = [];
+                    foreach ($files['fileUpload'] as $file) {
+                        if ($file->isValid() && !$file->hasMoved()) {
+                            $newName = $file->getRandomName();
+                            array_push($newFile, $newName);
+                            $file->move(FCPATH . 'uploads/pengeluaran', $newName);
+                        }
+                    }
+                    $this->db->table("pengeluaran")->update(['file' => json_encode($newFile)], ['id' => $_POST['idPengeluaran']]);
                 }
                 $data = [
                     "update" => $updateData

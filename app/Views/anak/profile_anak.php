@@ -150,6 +150,15 @@
                     </div>
                   </a>
                 </li>
+                <li class="nav-item" role="presentation">
+                  <a class="nav-link" data-bs-toggle="tab" href="#perkembanganAnak" role="tab" aria-selected="true">
+                    <div class="d-flex align-items-center">
+                      <div class="tab-icon"><i class="bx bx-user-pin font-18 me-1"></i>
+                      </div>
+                      <div class="tab-title">Perkembangan Anak</div>
+                    </div>
+                  </a>
+                </li>
               </ul>
               <div class="tab-content py-3">
                 <div class="tab-pane fade active show" id="dokumenAnak" role="tabpanel">
@@ -202,6 +211,169 @@
                         endif; ?>
                       </tbody>
                     </table>
+                  </div>
+                </div>
+                <div class="tab-pane fade show" id="perkembanganAnak" role="tabpanel">
+                  <div class="d-flex align-items-center">
+                    <div class="">
+                      <a href="<?= base_url() ?>anak/addPerkembangan?nip=<?= $anak['nip'] ?>" class="btn btn-primary ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Tambah Data"><i class="bx bx-plus me-0"></i> Tambah Perkembangan</a>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title">Monitoring Perkembangan Anak</h5>
+                    <hr>
+                    <div class="accordion" id="accordionExample">
+                      <?php $no_kembang = 1;
+                      if (!empty($perkembangan_anak)) :
+                        foreach ($perkembangan_anak as $kembang) :
+                      ?>
+                          <div class="accordion-item">
+                            <h2 class="accordion-header" id="<?= $kembang['id'] ?>">
+                              <button class="accordion-button <?= ($no_kembang == 1) ? "" : "collapsed" ?>" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<?= $kembang['id'] ?>" aria-expanded="<?= ($no_kembang == 1) ? "true" : "false" ?>">
+                                <?= date("d/m/Y H:i", strtotime($kembang['waktu_rekam'])) . " di " . $kembang['tempat'] ?>
+                              </button>
+                            </h2>
+                            <div id="collapse<?= $kembang['id'] ?>" class="accordion-collapse collapse <?= ($no_kembang == 1) ? "show" : "" ?>" aria-labelledby="heading<?= $kembang['id'] ?>" data-bs-parent="#accordionExample">
+                              <div class="accordion-body">
+                                <div class="row">
+                                  <div class="col-lg-12">
+                                    <div class="border border-3 p-4 rounded">
+                                      <div class="mb-3">
+                                        <div class="row">
+                                          <div class="col-lg-4">
+                                            <label for="tanggal" class="form-label">Tanggal dan Waktu<span class="text-danger">*</span></label>
+                                            <div class="input-group">
+                                              <input class="result form-control" type="text" id="tanggal" name="tanggal" placeholder="Masukkan tanggal pengeluaran" value="<?= date("d/m/Y H:i", strtotime($kembang['waktu_rekam'])) ?>" disabled> <span class="input-group-text" id="basic-addon2"><i class="bx bx-calendar-exclamation"></i></span>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div id="validation-tanggal" class="invalid-feedback"></div>
+                                      </div>
+                                      <div class="mb-3">
+                                        <label for="tempat" class="form-label">Tempat<span class="text-danger">*</span></label>
+                                        <div class="row">
+                                          <div class="col-lg-6">
+                                            <input type="text" class="form-control" id="tempat" name="tempat" placeholder="Masukkan tempat" value="<?= $kembang['tempat'] ?>" disabled>
+                                          </div>
+                                        </div>
+                                        <div id="validation-tempat" class="invalid-feedback"></div>
+                                      </div>
+                                      <h5 class="card-title">Keadaan Fisik</h5>
+                                      <div class="row">
+                                        <div class="col-lg-4 mb-3">
+                                          <label for="tinggiFisik" class="form-label">Tinggi Badan<span class="text-danger">*</span></label>
+                                          <input type="text" class="form-control" id="tinggiFisik" name="tinggiFisik" placeholder="Masukkan tinggi badan" value="<?= $kembang['tinggibadan_fisik'] ?>" disabled>
+                                          <div id="validation-tinggiFisik" class="invalid-feedback"></div>
+                                        </div>
+                                        <div class="col-lg-4 mb-3">
+                                          <label for="beratFisik" class="form-label">Berat Badan<span class="text-danger">*</span></label>
+                                          <input type="text" class="form-control" id="beratFisik" name="beratFisik" placeholder="Masukkan berat badan" value="<?= $kembang['beratbadan_fisik'] ?>" disabled>
+                                          <div id="validation-beratFisik" class="invalid-feedback"></div>
+                                        </div>
+                                        <div class="col-lg-4 mb-3">
+                                          <label for="tekananDarahFisik" class="form-label">Tekanan Darah</label>
+                                          <input type="text" class="form-control" id="tekananDarahFisik" name="tekananDarahFisik" placeholder="Masukkan tekanan darah" value="<?= $kembang['tekanandarah_fisik'] ?>" disabled>
+                                          <div id="validation-tekananDarahFisik" class="invalid-feedback"></div>
+                                        </div>
+                                        <div class="col-lg-4 mb-3">
+                                          <label for="gulaDarahFisik" class="form-label">Gula Darah</label>
+                                          <input type="text" class="form-control" id="gulaDarahFisik" name="gulaDarahFisik" placeholder="Masukkan gula darah" value="<?= $kembang['guladarah_fisik'] ?>" disabled>
+                                          <div id="validation-gulaDarahFisik" class="invalid-feedback"></div>
+                                        </div>
+                                        <div class="col-lg-4 mb-3">
+                                          <label for="kolesterolFisik" class="form-label">Kolesterol</label>
+                                          <input type="text" class="form-control" id="kolesterolFisik" name="kolesterolFisik" placeholder="Masukkan kolesterol" value="<?= $kembang['kolesterol_fisik'] ?>" disabled>
+                                          <div id="validation-kolesterolFisik" class="invalid-feedback"></div>
+                                        </div>
+                                        <div class="col-lg-4 mb-3">
+                                          <label for="fungsiParuFisik" class="form-label">Fungsi Paru</label>
+                                          <input type="text" class="form-control" id="fungsiParuFisik" name="fungsiParuFisik" placeholder="Masukkan fungsi paru" value="<?= $kembang['fungsiparu_fisik'] ?>" disabled>
+                                          <div id="validation-fungsiParuFisik" class="invalid-feedback"></div>
+                                        </div>
+                                        <div class="col-lg-12 mb-3">
+                                          <label for="keteranganFisik" class="form-label">Keterangan Fisik</label>
+                                          <textarea name="keteranganFisik" id="keteranganFisik" class="form-control" rows="3" placeholder="Masukkan keterangan fisik" disabled><?= $kembang['keterangan_fisik'] ?></textarea>
+                                          <div id="validation-keteranganFisik" class="invalid-feedback"></div>
+                                        </div>
+                                      </div>
+                                      <h5 class="card-title">Kondisi Mental Pskologis</h5>
+                                      <div class="mb-3">
+                                        <label for="percayadiri" class="form-label">Kepercayaan Diri</label>
+                                        <textarea name="percayadiri" id="percayadiri" class="form-control" rows="2" placeholder="Masukkan kepercayaan diri" disabled><?= $kembang['percayadiri_pskologis'] ?></textarea>
+                                        <div id="validation-percayadiri" class="invalid-feedback"></div>
+                                      </div>
+                                      <div class="mb-3">
+                                        <label for="mandiri" class="form-label">Kemandirian Diri</label>
+                                        <textarea name="mandiri" id="mandiri" class="form-control" rows="2" placeholder="Masukkan kemandirian diri" disabled><?= $kembang['mandiri_pskologis'] ?></textarea>
+                                        <div id="validation-mandiri" class="invalid-feedback"></div>
+                                      </div>
+                                      <div class="mb-3">
+                                        <label for="disiplin" class="form-label">Kedisiplinan</label>
+                                        <textarea name="disiplin" id="disiplin" class="form-control" rows="2" placeholder="Masukkan kedisiplinan" disabled><?= $kembang['disiplin_pskologis'] ?></textarea>
+                                        <div id="validation-disiplin" class="invalid-feedback"></div>
+                                      </div>
+                                      <div class="mb-3">
+                                        <label for="tanggungjawab" class="form-label">Tanggung Jawab</label>
+                                        <textarea name="tanggungjawab" id="tanggungjawab" class="form-control" rows="2" placeholder="Masukkan tanggung jawab" disabled><?= $kembang['tanggungjawab_pskologis'] ?></textarea>
+                                        <div id="validation-tanggungjawab" class="invalid-feedback"></div>
+                                      </div>
+                                      <div class="mb-3">
+                                        <label for="keteranganPsikologis" class="form-label">Keterangan Psikologis</label>
+                                        <textarea name="keteranganPsikologis" id="keteranganPsikologis" class="form-control" rows="3" placeholder="Masukkan keterangan psikologis" disabled><?= $kembang['keterangan_pskologis'] ?></textarea>
+                                        <div id="validation-keteranganPsikologis" class="invalid-feedback"></div>
+                                      </div>
+                                      <h5 class="card-title">Kondisi Sosial</h5>
+                                      <div class="mb-3">
+                                        <label for="penyesuaian" class="form-label">Kemampuan penyesuaian diri</label>
+                                        <textarea name="penyesuaian" id="penyesuaian" class="form-control" rows="2" placeholder="Masukkan penyesuaian diri" disabled><?= $kembang['penyesuaian_sosial'] ?></textarea>
+                                        <div id="validation-penyesuaian" class="invalid-feedback"></div>
+                                      </div>
+                                      <div class="mb-3">
+                                        <label for="kerjasama" class="form-label">Kerjasama</label>
+                                        <textarea name="kerjasama" id="kerjasama" class="form-control" rows="2" placeholder="Masukkan kerjasama" disabled><?= $kembang['kerjasama_sosial'] ?></textarea>
+                                        <div id="validation-kerjasama" class="invalid-feedback"></div>
+                                      </div>
+                                      <div class="mb-3">
+                                        <label for="sopan" class="form-label">Sopan Santun</label>
+                                        <textarea name="sopan" id="sopan" class="form-control" rows="2" placeholder="Masukkan sopan santun" disabled><?= $kembang['sopan_sosial'] ?></textarea>
+                                        <div id="validation-sopan" class="invalid-feedback"></div>
+                                      </div>
+                                      <div class="mb-3">
+                                        <label for="keteranganSosial" class="form-label">Keterangan Sosial</label>
+                                        <textarea name="keteranganSosial" id="keteranganSosial" class="form-control" rows="3" placeholder="Masukkan keterangan sosial" disabled><?= $kembang['keterangan_sosial'] ?></textarea>
+                                        <div id="validation-keteranganSosial" class="invalid-feedback"></div>
+                                      </div>
+                                      <h5 class="card-title">Permasalahan</h5>
+                                      <div class="mb-3">
+                                        <label for="gambaran" class="form-label">Gambaran secara jelas tentang apa masalahnya, faktor penyebab dan akibatnya</label>
+                                        <textarea name="gambaran" id="gambaran" class="form-control" rows="2" placeholder="Masukkan gambaran permasalahannya" disabled><?= $kembang['gambaran_masalah'] ?></textarea>
+                                        <div id="validation-gambaran" class="invalid-feedback"></div>
+                                      </div>
+                                      <div class="mb-3">
+                                        <label for="penyeselaian" class="form-label">Langkah-langkah pemecahan masalah yang dilakukan</label>
+                                        <textarea name="penyeselaian" id="penyeselaian" class="form-control" rows="2" placeholder="Masukkan pemecahan masalah" disabled><?= $kembang['penyelesaian_masalah'] ?></textarea>
+                                        <div id="validation-penyeselaian" class="invalid-feedback"></div>
+                                      </div>
+                                      <div class="mb-3">
+                                        <label for="perubahan" class="form-label">Perubahan yang telah dicapai</label>
+                                        <textarea name="perubahan" id="perubahan" class="form-control" rows="2" placeholder="Masukkan perubahan masalah" disabled><?= $kembang['perubahan_masalah'] ?></textarea>
+                                        <div id="validation-perubahan" class="invalid-feedback"></div>
+                                      </div>
+                                      <div class="mb-3">
+                                        <label for="keteranganPermasalahan" class="form-label">Keterangan Permasalahan</label>
+                                        <textarea name="keteranganPermasalahan" id="keteranganPermasalahan" class="form-control" rows="3" placeholder="Masukkan keterangan permasalahan" disabled><?= $kembang['keterangan_masalah'] ?></textarea>
+                                        <div id="validation-keteranganPermasalahan" class="invalid-feedback"></div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                      <?php $no_kembang++;
+                        endforeach;
+                      endif; ?>
+                    </div>
                   </div>
                 </div>
               </div>

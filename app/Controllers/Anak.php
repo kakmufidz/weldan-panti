@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\Anak_asuh;
 use App\Models\Dokumen_anak;
+use App\Models\Perkembangan_anak;
 
 class Anak extends BaseController
 {
@@ -35,31 +36,22 @@ class Anak extends BaseController
     return view('anak/tambah_anak', $data);
   }
 
-  public function addDokumen()
-  {
-    if ($this->session->get('NAMA') == null)  return redirect()->to(base_url());
-    $manak = new Anak_asuh();
-    $dataAnak = $manak->where(['nip' => $_GET['nip'], 'deleted_at' => null])->get()->getRowArray();
-    $data = [
-      "page_title" => "Tambah Anak Asuh",
-      "session" => $this->session->get(),
-      "anak" => $dataAnak,
-    ];
-    return view('anak/add_dokumen', $data);
-  }
 
   public function profile()
   {
     if ($this->session->get('NAMA') == null)  return redirect()->to(base_url());
     $manak = new Anak_asuh();
-    $mdokanak = new Dokumen_anak();
     $dataAnak = $manak->where(['nip' => $_GET['nip'], 'deleted_at' => null])->get()->getRowArray();
-    $dokAnak = $mdokanak->where(['id_anak' => $dataAnak['id'], 'deleted_at' => null])->get()->getResultArray();
+    $mdokanak = new Dokumen_anak();
+    $dokAnak = $mdokanak->where(['id_anak' => $dataAnak['id'], 'deleted_at' => null])->orderBy("id", "DESC")->get()->getResultArray();
+    $mperkembangananak = new Perkembangan_anak();
+    $perkembanganAnak = $mperkembangananak->where(['id_anak' => $dataAnak['id'], 'deleted_at' => null])->orderBy("id", "DESC")->get()->getResultArray();
     $data = [
       "page_title" => "Profile Anak",
       "session" => $this->session->get(),
       "anak" => $dataAnak,
-      "dokumen_anak" => $dokAnak
+      "dokumen_anak" => $dokAnak,
+      "perkembangan_anak" => $perkembanganAnak
     ];
     return view('anak/profile_anak', $data);
   }
@@ -90,6 +82,32 @@ class Anak extends BaseController
     }
   }
 
+  public function addDokumen()
+  {
+    if ($this->session->get('NAMA') == null)  return redirect()->to(base_url());
+    $manak = new Anak_asuh();
+    $dataAnak = $manak->where(['nip' => $_GET['nip'], 'deleted_at' => null])->get()->getRowArray();
+    $data = [
+      "page_title" => "Tambah Dokumen Anak",
+      "session" => $this->session->get(),
+      "anak" => $dataAnak,
+    ];
+    return view('anak/add_dokumen', $data);
+  }
+
+
+  public function addPerkembangan()
+  {
+    if ($this->session->get('NAMA') == null)  return redirect()->to(base_url());
+    $manak = new Anak_asuh();
+    $dataAnak = $manak->where(['nip' => $_GET['nip'], 'deleted_at' => null])->get()->getRowArray();
+    $data = [
+      "page_title" => "Tambah Perkembangan Anak",
+      "session" => $this->session->get(),
+      "anak" => $dataAnak,
+    ];
+    return view('anak/add_perkembangan', $data);
+  }
   public function proses()
   {
     if ($this->session->get('NAMA') == null)  return redirect()->to(base_url());
@@ -387,6 +405,67 @@ class Anak extends BaseController
       $data = [
         "delete" => $delete
       ];
+      echo json_encode($data);
+    } elseif ($_GET['act'] == "add_perkembangan") {
+      $validationRule = [
+        'tanggal' => [
+          'label' => 'Tanggal & Waktu',
+          'rules' => 'required'
+        ],
+        'tempat' => [
+          'label' => 'Tempat',
+          'rules' => 'required'
+        ],
+        'tinggiFisik' => [
+          'label' => 'Tinggi Badan',
+          'rules' => 'required'
+        ],
+        'beratFisik' => [
+          'label' => 'Berat Badan',
+          'rules' => 'required'
+        ]
+      ];
+      if (!$this->validate($validationRule)) {
+        $notempty = [];
+        foreach ($_POST as $name => $val) {
+          if (!empty($val)) {
+            array_push($notempty, $name);
+          }
+        }
+        $data = [
+          'notempty' => $notempty,
+          'errors' => $this->validator->getErrors()
+        ];
+      } else {
+        $tanggal = date("Y-m-d H:i:s", strtotime(str_replace("/", "-", $_POST['tanggal'])));
+        $input_data = array(
+          'id_anak' => $_POST['idAnak'],
+          'waktu_rekam' => $tanggal,
+          'tempat' => $_POST['tempat'],
+          'tinggibadan_fisik' => $_POST['tinggiFisik'],
+          'beratbadan_fisik' => $_POST['beratFisik'],
+          'tekanandarah_fisik' => $_POST['tekananDarahFisik'],
+          'guladarah_fisik' => $_POST['gulaDarahFisik'],
+          'kolesterol_fisik' => $_POST['kolesterolFisik'],
+          'fungsiparu_fisik' => $_POST['fungsiParuFisik'],
+          'keterangan_fisik' => $_POST['keteranganFisik'],
+          'percayadiri_pskologis' => $_POST['percayadiri'],
+          'mandiri_pskologis' => $_POST['mandiri'],
+          'disiplin_pskologis' => $_POST['disiplin'],
+          'tanggungjawab_pskologis' => $_POST['tanggungjawab'],
+          'keterangan_pskologis' => $_POST['keteranganPsikologis'],
+          'penyesuaian_sosial' => $_POST['penyesuaian'],
+          'kerjasama_sosial' => $_POST['kerjasama'],
+          'sopan_sosial' => $_POST['sopan'],
+          'keterangan_sosial' => $_POST['keteranganSosial'],
+          'gambaran_masalah' => $_POST['gambaran'],
+          'penyelesaian_masalah' => $_POST['penyeselaian'],
+          'perubahan_masalah' => $_POST['perubahan'],
+          'keterangan_masalah' => $_POST['keteranganPermasalahan']
+        );
+        $mperkembangananak = new Perkembangan_anak();
+        $data['insert'] = $mperkembangananak->save($input_data);
+      }
       echo json_encode($data);
     }
   }

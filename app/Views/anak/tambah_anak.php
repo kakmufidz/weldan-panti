@@ -134,7 +134,7 @@
                 </div>
               </div>
             </div>
-          </div><!--end row-->
+          </div>
           <div class="col-12 mt-3">
             <div class="d-grid">
               <button type="submit" class="btn btn-primary">Simpan Data Anak</button>

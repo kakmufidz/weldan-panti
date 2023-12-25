@@ -6,6 +6,7 @@
         <th class="text-center">#</th>
         <th class="text-center">NIP</th>
         <th class="text-center" colspan="2">NAMA</th>
+        <th class="text-center">USIA</th>
         <th class="text-center">TTL</th>
         <th class="text-center">KECAMATAN</th>
         <th class="text-center">KATEGORI</th>
@@ -19,17 +20,18 @@
         <tr>
           <td class="text-center"><?= $no ?></td>
           <td class="text-center"><?= $anak['nip'] ?></td>
-          <td>
-            <?php $gambar = json_decode($anak['foto']);
-            if (isset($gambar[0])) : ?>
-              <img src="<?= base_url() ?>/uploads/foto_anak/<?= $gambar[0] ?>" class="product-img-2" style="object-fit: cover;" alt="product img">
-            <?php else : ?>
-              <img src="<?= base_url() ?>/images/default-product.png" class="product-img-2" style="object-fit: cover;" alt="product img">
-            <?php endif; ?>
-
+          <td><a href="<?= base_url() ?>anak/profile?nip=<?= $anak['nip'] ?>">
+              <?php $gambar = json_decode($anak['foto']);
+              if (isset($gambar[0])) : ?>
+                <img src="<?= base_url() ?>/uploads/foto_anak/<?= $gambar[0] ?>" class="product-img-2" style="object-fit: cover;" alt="product img">
+              <?php else : ?>
+                <img src="<?= base_url() ?>/images/default-product.png" class="product-img-2" style="object-fit: cover;" alt="product img">
+              <?php endif; ?>
+            </a>
           </td>
-          <td><?= $anak['nama'] ?></td>
-          <td><?= $anak['tempat_lahir'] . ", " . date("d-m-Y", strtotime($anak['tanggal_lahir'])) ?></td>
+          <td><a href="<?= base_url() ?>anak/profile?nip=<?= $anak['nip'] ?>" class="text-dark"><?= $anak['nama'] ?></a></td>
+          <td><?= umur($anak['tanggal_lahir'], "tahun") ?></td>
+          <td><?= $anak['tempat_lahir'] . ", " . tgl_indo(date("Y-m-d", strtotime($anak['tanggal_lahir']))) ?></td>
           <td>
             <?= (isset($anak['desa']) ? $anak['desa'] : "")
               . (isset($anak['rt']) ? " RT" . $anak['rt'] : "")

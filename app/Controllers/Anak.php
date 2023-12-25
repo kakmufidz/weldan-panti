@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\Anak_asuh;
 use App\Models\Dokumen_anak;
+use App\Models\Orangtua_anak;
 use App\Models\Perkembangan_anak;
 
 class Anak extends BaseController
@@ -14,6 +15,7 @@ class Anak extends BaseController
     $this->session = session();
     $this->validation = \Config\Services::validation();
     $this->db = \Config\Database::connect();
+    helper('date_helper');
   }
 
   public function index()
@@ -46,12 +48,15 @@ class Anak extends BaseController
     $dokAnak = $mdokanak->where(['id_anak' => $dataAnak['id'], 'deleted_at' => null])->orderBy("id", "DESC")->get()->getResultArray();
     $mperkembangananak = new Perkembangan_anak();
     $perkembanganAnak = $mperkembangananak->where(['id_anak' => $dataAnak['id'], 'deleted_at' => null])->orderBy("id", "DESC")->get()->getResultArray();
+    $mortu = new Orangtua_anak();
+    $dataOrtu = $mortu->where(['id_anak' => $dataAnak['id'], 'deleted_at' => null])->orderBy("id", "DESC")->get()->getRowArray();
     $data = [
       "page_title" => "Profile Anak",
       "session" => $this->session->get(),
       "anak" => $dataAnak,
       "dokumen_anak" => $dokAnak,
-      "perkembangan_anak" => $perkembanganAnak
+      "perkembangan_anak" => $perkembanganAnak,
+      "orangtua" => $dataOrtu
     ];
     return view('anak/profile_anak', $data);
   }
@@ -108,6 +113,35 @@ class Anak extends BaseController
     ];
     return view('anak/add_perkembangan', $data);
   }
+
+  public function editPerkembangan()
+  {
+    if ($this->session->get('NAMA') == null)  return redirect()->to(base_url());
+    $dataPerkembangan = $this->db->table("perkembangan_anak p")->join("anak_asuh a", "p.id_anak=a.id")->select("p.*,a.nip,a.nama")->where(['p.id' => $_GET['id'], 'p.deleted_at' => null])->get()->getRowArray();
+    $data = [
+      "page_title" => "Edit Perkembangan Anak",
+      "session" => $this->session->get(),
+      "perkembangan" => $dataPerkembangan,
+    ];
+    return view('anak/edit_perkembangan', $data);
+  }
+
+  public function editOrangtua()
+  {
+    if ($this->session->get('NAMA') == null)  return redirect()->to(base_url());
+    $manak = new Anak_asuh();
+    $dataAnak = $manak->where(['nip' => $_GET['nip'], 'deleted_at' => null])->get()->getRowArray();
+    $mortu = new Orangtua_anak();
+    $dataOrangtua = $mortu->where(['id_anak' => $dataAnak['id'], 'deleted_at' => null])->orderBy("id", "DESC")->get()->getRowArray();
+    $data = [
+      "page_title" => "Edit Orang Tua Anak",
+      "session" => $this->session->get(),
+      "anak" => $dataAnak,
+      "orangtua" => $dataOrangtua
+    ];
+    return view('anak/edit_orangtua', $data);
+  }
+
   public function proses()
   {
     if ($this->session->get('NAMA') == null)  return redirect()->to(base_url());
@@ -465,6 +499,129 @@ class Anak extends BaseController
         );
         $mperkembangananak = new Perkembangan_anak();
         $data['insert'] = $mperkembangananak->save($input_data);
+      }
+      echo json_encode($data);
+    } elseif ($_GET['act'] == "update_perkembangan") {
+      $validationRule = [
+        'tanggal' => [
+          'label' => 'Tanggal & Waktu',
+          'rules' => 'required'
+        ],
+        'tempat' => [
+          'label' => 'Tempat',
+          'rules' => 'required'
+        ],
+        'tinggiFisik' => [
+          'label' => 'Tinggi Badan',
+          'rules' => 'required'
+        ],
+        'beratFisik' => [
+          'label' => 'Berat Badan',
+          'rules' => 'required'
+        ]
+      ];
+      if (!$this->validate($validationRule)) {
+        $notempty = [];
+        foreach ($_POST as $name => $val) {
+          if (!empty($val)) {
+            array_push($notempty, $name);
+          }
+        }
+        $data = [
+          'notempty' => $notempty,
+          'errors' => $this->validator->getErrors()
+        ];
+      } else {
+        $tanggal = date("Y-m-d H:i:s", strtotime(str_replace("/", "-", $_POST['tanggal'])));
+        $input_data = array(
+          'waktu_rekam' => $tanggal,
+          'tempat' => $_POST['tempat'],
+          'tinggibadan_fisik' => $_POST['tinggiFisik'],
+          'beratbadan_fisik' => $_POST['beratFisik'],
+          'tekanandarah_fisik' => $_POST['tekananDarahFisik'],
+          'guladarah_fisik' => $_POST['gulaDarahFisik'],
+          'kolesterol_fisik' => $_POST['kolesterolFisik'],
+          'fungsiparu_fisik' => $_POST['fungsiParuFisik'],
+          'keterangan_fisik' => $_POST['keteranganFisik'],
+          'percayadiri_pskologis' => $_POST['percayadiri'],
+          'mandiri_pskologis' => $_POST['mandiri'],
+          'disiplin_pskologis' => $_POST['disiplin'],
+          'tanggungjawab_pskologis' => $_POST['tanggungjawab'],
+          'keterangan_pskologis' => $_POST['keteranganPsikologis'],
+          'penyesuaian_sosial' => $_POST['penyesuaian'],
+          'kerjasama_sosial' => $_POST['kerjasama'],
+          'sopan_sosial' => $_POST['sopan'],
+          'keterangan_sosial' => $_POST['keteranganSosial'],
+          'gambaran_masalah' => $_POST['gambaran'],
+          'penyelesaian_masalah' => $_POST['penyeselaian'],
+          'perubahan_masalah' => $_POST['perubahan'],
+          'keterangan_masalah' => $_POST['keteranganPermasalahan']
+        );
+        $updateData = $this->db->table("perkembangan_anak")->update($input_data, ['id' => $_POST['idPerkembangan']]);
+        $data = [
+          "update" => $updateData
+        ];
+      }
+      echo json_encode($data);
+    } elseif ($_GET['act'] == "update_ortu") {
+      $validationRule = [
+        'namaAyah' => [
+          'label' => 'Nama Ayah',
+          'rules' => 'required'
+        ],
+        'namaIbu' => [
+          'label' => 'Nama Ibu',
+          'rules' => 'required'
+        ],
+      ];
+
+      if (!$this->validate($validationRule)) {
+        $notempty = [];
+        foreach ($_POST as $name => $val) {
+          if (!empty($val)) {
+            array_push($notempty, $name);
+          }
+        }
+        $data = [
+          'notempty' => $notempty,
+          'errors' => $this->validator->getErrors()
+        ];
+      } else {
+        $tglLahirAyah = (empty($_POST['tanggalLahirAyah'])) ? null : date("Y-m-d", strtotime(str_replace("/", "-", $_POST['tanggalLahirAyah'])));
+        $tglLahirIbu = (empty($_POST['tanggalLahirIbu'])) ? null : date("Y-m-d", strtotime(str_replace("/", "-", $_POST['tanggalLahirIbu'])));
+        $input_data = array(
+          'id_anak' => $_POST['idAnak'],
+          'nama_ayah' => $_POST['namaAyah'],
+          'pekerjaan_ayah' => $_POST['pekerjaanAyah'],
+          'agama_ayah' => $_POST['agamaAyah'],
+          'hp_ayah' => $_POST['hpAyah'],
+          'tempatlahir_ayah' => $_POST['tempatLahirAyah'],
+          'tgllahir_ayah' => $tglLahirAyah,
+          'rt_ayah' => $_POST['rtAyah'],
+          'rw_ayah' => $_POST['rwAyah'],
+          'desa_ayah' => $_POST['desaAyah'],
+          'kecamatan_ayah' => $_POST['kecamatanAyah'],
+          'kabupaten_ayah' => $_POST['kabupatenAyah'],
+          'provinsi_ayah' => $_POST['provinsiAyah'],
+          'nama_ibu' => $_POST['namaIbu'],
+          'pekerjaan_ibu' => $_POST['pekerjaanIbu'],
+          'agama_ibu' => $_POST['agamaIbu'],
+          'hp_ibu' => $_POST['hpIbu'],
+          'tempatlahir_ibu' => $_POST['tempatLahirIbu'],
+          'tgllahir_ibu' => $tglLahirIbu,
+          'rt_ibu' => $_POST['rtIbu'],
+          'rw_ibu' => $_POST['rwIbu'],
+          'desa_ibu' => $_POST['desaIbu'],
+          'kecamatan_ibu' => $_POST['kecamatanIbu'],
+          'kabupaten_ibu' => $_POST['kabupatenIbu'],
+          'provinsi_ibu' => $_POST['provinsiIbu'],
+        );
+        if (!empty($_POST['idOrtu'])) {
+          $data['update'] = $this->db->table("orangtua_anak")->update($input_data, ['id' => $_POST['idOrtu']]);
+        } else {
+          $mortu = new Orangtua_anak();
+          $data['update'] = $mortu->save($input_data);
+        }
       }
       echo json_encode($data);
     }

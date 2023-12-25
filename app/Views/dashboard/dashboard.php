@@ -48,7 +48,7 @@
           <div class="d-flex align-items-center">
             <div>
               <p class="mb-0 text-secondary">Pemasukan</p>
-              <h4 class="my-1" style="color: #673ab7!important;">Rp. <span class="counter"><?= rp_count($pemasukan)  ?></span></h4>
+              <h4 class="my-1" style="color: #673ab7!important;">Rp. <span class="counter"><?= rp_count($pemasukan) ?></span></h4>
               <p class="mb-0 font-13">Tanggal <?= $tanggal ?></p>
             </div>
             <div class="widgets-icons-2 rounded-circle bg-gradient-cosmic text-white ms-auto"><i class='bx bxs-bar-chart-alt-2'></i>
@@ -63,7 +63,7 @@
           <div class="d-flex align-items-center">
             <div>
               <p class="mb-0 text-secondary">Pengeluaran</p>
-              <h4 class="my-1" style="color: #e10a1f!important;"><span class="counter">30</h4>
+              <h4 class="my-1" style="color: #e10a1f!important;">Rp. <span class="counter"><?= rp_count($pengeluaran) ?></span></h4>
               <p class="mb-0 font-13">Tanggal <?= $tanggal ?></p>
             </div>
             <div class="widgets-icons-2 rounded-circle bg-gradient-burning text-white ms-auto"><i class='bx bxs-group'></i>

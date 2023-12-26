@@ -28,7 +28,7 @@
           <input type="hidden" id="idOrtu" name="idOrtu" value="<?= (isset($orangtua['id'])) ? $orangtua['id'] : "" ?>" required>
           <div class="row">
             <p class="text-danger">* Wajib diisi</p>
-            <div class="col-lg-6 p-3 border rounded">
+            <div class="col-lg-6 p-4 border rounded">
               <h5 class="card-title">Ayah</h5>
               <div class="mb-3">
                 <label for="namaAyah" class="form-label">Nama Ayah<span class="text-danger">*</span></label>
@@ -108,7 +108,7 @@
                 <div id="validation-provinsiAyah" class="invalid-feedback"></div>
               </div>
             </div>
-            <div class="col-lg-6 p-3 border rounded">
+            <div class="col-lg-6 p-4 border rounded">
               <h5 class="card-title">Ibu</h5>
               <div class="mb-3">
                 <label for="namaIbu" class="form-label">Nama Ibu<span class="text-danger">*</span></label>

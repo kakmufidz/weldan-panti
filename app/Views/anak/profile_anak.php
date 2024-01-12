@@ -51,24 +51,24 @@
         <div class="col-lg-8">
           <div class="card">
             <div class="card-body">
-              <div class="mb-3">
+              <div class="">
                 <label for="tempatLahir" class="form-label">Tempat & Tanggal Lahir*</label>
                 <div class="row">
-                  <div class="col-5">
+                  <div class="col-lg-5 mb-3">
                     <input type="text" class="form-control" id="tempatLahir" name="tempatLahir" value="<?= $anak['tempat_lahir'] ?>" placeholder="Masukkan tempat lahir" required disabled>
                   </div>
-                  <div class="col-4">
+                  <div class="col-lg-4 mb-3">
                     <input type="text" class="form-control" id="tanggalLahir" name="tanggalLahir" value="<?= tgl_indo(date("Y-m-d", strtotime($anak['tanggal_lahir']))) ?>" placeholder="Masukkan tanggal lahir" required disabled>
                   </div>
                 </div>
               </div>
               <div class="mb-3">
                 <div class="row">
-                  <div class="col-2">
+                  <div class="col-lg-2">
                     <label for="rt" class="form-label">RT*</label>
                     <input type="text" class="form-control" id="rt" name="rt" value="<?= $anak['rt'] ?>" placeholder="RT" required disabled>
                   </div>
-                  <div class="col-2">
+                  <div class="col-lg-2">
                     <label for="rw" class="form-label">RW*</label>
                     <input type="text" class="form-control" id="rw" name="rw" value="<?= $anak['rw'] ?>" placeholder="RW" required disabled>
                   </div>
@@ -76,11 +76,11 @@
               </div>
               <div class="mb-3">
                 <div class="row">
-                  <div class="col-6">
+                  <div class="col-lg-6">
                     <label for="desa" class="form-label">DESA*</label>
                     <input type="text" class="form-control" id="desa" name="desa" value="<?= $anak['desa'] ?>" placeholder="Masukkan Desa" required disabled>
                   </div>
-                  <div class="col-6">
+                  <div class="col-lg-6">
                     <label for="kecamatan" class="form-label">KECAMATAN*</label>
                     <input type="text" class="form-control" id="kecamatan" name="kecamatan" value="<?= $anak['kecamatan'] ?>" placeholder="Masukkan Kecamatan" required disabled>
                   </div>
@@ -88,11 +88,11 @@
               </div>
               <div class="mb-3">
                 <div class="row">
-                  <div class="col-6">
+                  <div class="col-lg-6">
                     <label for="kabupaten" class="form-label">KABUPATEN*</label>
                     <input type="text" class="form-control" id="kabupaten" name="kabupaten" value="<?= $anak['kabupaten'] ?>" placeholder="Masukkan Kabupaten" required disabled>
                   </div>
-                  <div class="col-6">
+                  <div class="col-lg-6">
                     <label for="provinsi" class="form-label">PROVINSI*</label>
                     <input type="text" class="form-control" id="provinsi" name="provinsi" value="<?= $anak['provinsi'] ?>" placeholder="Masukkan provinsi" required disabled>
                   </div>

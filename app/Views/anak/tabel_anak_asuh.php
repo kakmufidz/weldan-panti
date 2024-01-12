@@ -1,16 +1,42 @@
 <link href="<?= base_url() ?>/assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+<div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 mb-3">
+  <div class="col">
+    <div class="card radius-10 border-start border-0 border-3 border-info">
+      <div class="card-body">
+        <div class="d-flex align-items-center">
+          <?php
+          $start = date("d/m/Y");
+          $end = date("d/m/Y");
+          if ($start == $end) {
+            $tanggal = $start;
+          } else {
+            $tanggal = $start . " - " . $end;
+          }
+          ?>
+          <div>
+            <p class="mb-0 text-secondary"></p>
+            <h4 class="my-1 text-info"><span class="counter"><?= sizeof($anak_asuh) ?></span> Anak</h4>
+            <p class="mb-0 font-13">Jumlah Sesuai Filter</p>
+          </div>
+          <div class="widgets-icons-2 rounded-circle bg-gradient-scooter text-white ms-auto"><i class='bx bxs-group'></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="table-responsive mt-3">
-  <table id="example2" class="table align-middle mb-0">
+  <table id="dataAnak" class="table align-middle mb-0">
     <thead>
       <tr>
         <th class="text-center">#</th>
         <th class="text-center">NIP</th>
         <th class="text-center" colspan="2">NAMA</th>
+        <th class="text-center">KATEGORI</th>
         <th class="text-center">USIA</th>
         <th class="text-center">TTL</th>
-        <th class="text-center">KECAMATAN</th>
-        <th class="text-center">KATEGORI</th>
         <th class="text-center">STATUS</th>
+        <th class="text-center">KECAMATAN</th>
         <th class="text-center">AKSI</th>
       </tr>
     </thead>
@@ -30,8 +56,10 @@
             </a>
           </td>
           <td><a href="<?= base_url() ?>anak/profile?nip=<?= $anak['nip'] ?>" class="text-dark"><?= $anak['nama'] ?></a></td>
+          <td><?= $anak['kategori_anak'] ?></td>
           <td><?= umur($anak['tanggal_lahir'], "tahun") ?></td>
           <td><?= $anak['tempat_lahir'] . ", " . tgl_indo(date("Y-m-d", strtotime($anak['tanggal_lahir']))) ?></td>
+          <td><?= $anak['status_anak'] . ", " . $anak['status_panti'] ?></td>
           <td>
             <?= (isset($anak['desa']) ? $anak['desa'] : "")
               . (isset($anak['rt']) ? " RT" . $anak['rt'] : "")
@@ -42,8 +70,6 @@
               . (isset($anak['provinsi']) ? "" . $anak['provinsi'] : "");
             ?>
           </td>
-          <td><?= $anak['kategori_anak'] ?></td>
-          <td><?= $anak['status_anak'] . ", " . $anak['status_panti'] ?></td>
           <td>
             <div class="d-flex order-actions">
               <a href="<?= base_url() ?>anak/profile?nip=<?= $anak['nip'] ?>" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Profile Anak"><i class='bx bxs-user-circle'></i></a>
@@ -56,16 +82,22 @@
     </tbody>
   </table>
 </div>
-<script src="<?= base_url() ?>/assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
-<script src="<?= base_url() ?>/assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
+<script src="<?= base_url() ?>assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
+<script src="<?= base_url() ?>assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
+<script src="<?= base_url() ?>assets/plugins/waypoints/lib/jquery.waypoints.min.js"></script>
+<script src="<?= base_url() ?>assets/plugins/counterup/jquery.counterup.min.js"></script>
 <script type="text/javascript">
   $(document).ready(function() {
+    // Assuming you have a DataTable instance on the element with id 'example2'
+    var table = $('#dataAnak').DataTable();
+    table.destroy(); // Destroy the DataTable instance
 
-    var table = $('#example2').DataTable({
+    var table = $('#dataAnak').DataTable({
       lengthChange: false,
       buttons: ['copy', 'excel', 'pdf', 'print']
     });
 
     table.buttons().container().appendTo('#example2_wrapper .col-md-6:eq(0)');
+
   });
 </script>

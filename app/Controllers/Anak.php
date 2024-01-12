@@ -79,7 +79,20 @@ class Anak extends BaseController
     if ($_GET['act'] == "tabel-anak") {
       $id_panti = $this->session->get('ID_PANTI');
       $manak = new Anak_asuh();
-      $dataAnak = $manak->where(['id_panti' => $id_panti, 'deleted_at' => null])->get()->getResultArray();
+      $where = [
+        'id_panti' => $id_panti,
+        'deleted_at' => null
+      ];
+      if ($_POST["kategoriAnak"] != "Semua Data") {
+        $where['kategori_anak'] = $_POST['kategoriAnak'];
+      }
+      if ($_POST["statusPanti"] != "Semua Data") {
+        $where['status_panti'] = $_POST['statusPanti'];
+      }
+      if ($_POST["statusAnak"] != "Semua Data") {
+        $where['status_anak'] = $_POST['statusAnak'];
+      }
+      $dataAnak = $manak->where($where)->get()->getResultArray();
       $data = [
         "anak_asuh" => $dataAnak
       ];

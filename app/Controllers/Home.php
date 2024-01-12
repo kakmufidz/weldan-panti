@@ -8,6 +8,7 @@ class Home extends BaseController
     {
         $this->validation = \Config\Services::validation();
         $this->session = session();
+        helper(['date_helper', 'currency_helper']);
     }
 
     public function index()

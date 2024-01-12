@@ -23,48 +23,33 @@
   <title>Sistem Panti</title>
 </head>
 
-<body class="bg-login">
+<body class="bg-lock-screen">
   <!--wrapper-->
   <div class="wrapper">
-    <div class="section-authentication-signin d-flex align-items-center justify-content-center my-5 my-lg-0">
-      <div class="container-fluid">
-        <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3">
-          <div class="col mx-auto">
-            <div class="card">
-              <div class="card-body">
-                <div class="border p-4 rounded">
-                  <div class="text-center">
-                    <h3 class="">Sistem Panti</h3>
-                  </div>
-                  <div class="login-separater text-center mb-4">
-                    <hr />
-                  </div>
-                  <div class="form-body">
-                    <form class="row g-3" id="form-login">
-                      <div class="col-12">
-                        <label for="inputEmailAddress" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Alamat Email">
-                      </div>
-                      <div class="col-12">
-                        <label for="inputChoosePassword" class="form-label">Password</label>
-                        <div class="input-group" id="show_hide_password">
-                          <input type="password" class="form-control border-end-0" id="password" name="password" value="" placeholder="Masukan Password"> <a href="javascript:;" class="input-group-text bg-transparent"><i class='bx bx-hide'></i></a>
-                        </div>
-                        <div id="error-login" class="invalid-feedback"></div>
-                      </div>
-                      <div class="col-12">
-                        <div class="d-grid">
-                          <button type="submit" class="btn btn-primary" id="login"><i class="bx bxs-lock-open"></i>Masuk</button>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
+    <div class="authentication-lock-screen d-flex align-items-center justify-content-center">
+      <div class="card shadow-none bg-transparent">
+        <div class="card-body p-md-5 text-center">
+          <h2 class="text-white"><span id="clock">00:00:00</span> WIB</h2>
+          <h5 class="text-white"><?= hari_ini() . ", " . tgl_indo(date("Y-m-d")) ?></h5>
+          <div class="">
+            <img src="assets/images/icons/user.png" class="mt-5" width="120" alt="" />
           </div>
+          <p class="mt-2 text-white">Administrator</p>
+          <form id="form-login">
+            <div class="mb-3 mt-3">
+              <input type="email" class="form-control" id="email" name="email" placeholder="Alamat Email">
+            </div>
+            <div class="mb-3 mt-3">
+              <div class="input-group" id="show_hide_password">
+                <input type="password" class="form-control border-end-0" id="password" name="password" value="" placeholder="Masukan Password"> <a href="javascript:;" class="input-group-text"><i class='bx bx-hide'></i></a>
+              </div>
+              <div id="error-login" class="invalid-feedback"></div>
+            </div>
+            <div class="d-grid">
+              <button type="submit" class="btn btn-white" id="login"><i class="bx bxs-lock-open"></i>Masuk</button>
+            </div>
+          </form>
         </div>
-        <!--end row-->
       </div>
     </div>
   </div>
@@ -122,6 +107,28 @@
         var event = 'dropdown';
         signin(event);
       });
+
+      // Function to update the clock
+      function updateClock() {
+        var now = new Date();
+        var hours = now.getHours();
+        var minutes = now.getMinutes();
+        var seconds = now.getSeconds();
+
+        // Add leading zero if the digit is less than 10
+        hours = (hours < 10) ? "0" + hours : hours;
+        minutes = (minutes < 10) ? "0" + minutes : minutes;
+        seconds = (seconds < 10) ? "0" + seconds : seconds;
+
+        // Display the time in the #clock element
+        $('#clock').text(hours + ":" + minutes + ":" + seconds);
+      }
+
+      // Update the clock every second
+      setInterval(updateClock, 1000);
+
+      // Initial call to display the clock immediately
+      updateClock();
     });
   </script>
   <!--app JS-->

@@ -1,7 +1,7 @@
 <?= $this->extend('layouts/layout') ?>
 <?= $this->section('content') ?>
+<link href="<?= base_url() ?>/assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
-<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" /> -->
 <div class="page-content">
   <!--breadcrumb-->
   <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
@@ -85,6 +85,8 @@
 
 <?= $this->endSection() ?>
 <?= $this->section('script') ?>
+<script src="<?= base_url() ?>assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
+<script src="<?= base_url() ?>assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
 <script type="text/javascript">
   function get_anak() {
     var kategoriAnak = $("#kategoriAnak").val();
@@ -100,6 +102,7 @@
       },
       success: function(result) {
         $('#show_tabelAnak').html(result);
+        $('#dataAnak').DataTable();
       },
     });
   }

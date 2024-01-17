@@ -1,4 +1,3 @@
-<link href="<?= base_url() ?>/assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
 <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 mb-3">
   <div class="col">
     <div class="card radius-10 border-start border-0 border-3 border-info">
@@ -31,7 +30,7 @@
       <tr>
         <th class="text-center">#</th>
         <th class="text-center">NIP</th>
-        <th class="text-center" colspan="2">NAMA</th>
+        <th class="text-center">NAMA</th>
         <th class="text-center">KATEGORI</th>
         <th class="text-center">USIA</th>
         <th class="text-center">TTL</th>
@@ -46,16 +45,23 @@
         <tr>
           <td class="text-center"><?= $no ?></td>
           <td class="text-center"><?= $anak['nip'] ?></td>
-          <td><a href="<?= base_url() ?>anak/profile?nip=<?= $anak['nip'] ?>">
-              <?php $gambar = json_decode($anak['foto']);
-              if (isset($gambar[0])) : ?>
-                <img src="<?= base_url() ?>/uploads/foto_anak/<?= $gambar[0] ?>" class="product-img-2" style="object-fit: cover;" alt="product img">
-              <?php else : ?>
-                <img src="<?= base_url() ?>/images/default-product.png" class="product-img-2" style="object-fit: cover;" alt="product img">
-              <?php endif; ?>
-            </a>
+          <td>
+            <div class="d-flex align-items-center">
+              <div class="me-4">
+                <a href="<?= base_url() ?>anak/profile?nip=<?= $anak['nip'] ?>">
+                  <?php $gambar = json_decode($anak['foto']);
+                  if (isset($gambar[0])) : ?>
+                    <img src="<?= base_url() ?>/uploads/foto_anak/<?= $gambar[0] ?>" class="product-img-2" style="object-fit: cover;" alt="product img">
+                  <?php else : ?>
+                    <img src="<?= base_url() ?>/images/default-product.png" class="product-img-2" style="object-fit: cover;" alt="product img">
+                  <?php endif; ?>
+                </a>
+              </div>
+              <div>
+                <a href="<?= base_url() ?>anak/profile?nip=<?= $anak['nip'] ?>" class="text-dark"><?= $anak['nama'] ?></a>
+              </div>
+            </div>
           </td>
-          <td><a href="<?= base_url() ?>anak/profile?nip=<?= $anak['nip'] ?>" class="text-dark"><?= $anak['nama'] ?></a></td>
           <td><?= $anak['kategori_anak'] ?></td>
           <td><?= umur($anak['tanggal_lahir'], "tahun") ?></td>
           <td><?= $anak['tempat_lahir'] . ", " . tgl_indo(date("Y-m-d", strtotime($anak['tanggal_lahir']))) ?></td>
@@ -81,22 +87,3 @@
     </tbody>
   </table>
 </div>
-<script src="<?= base_url() ?>assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
-<script src="<?= base_url() ?>assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
-<script src="<?= base_url() ?>assets/plugins/waypoints/lib/jquery.waypoints.min.js"></script>
-<script src="<?= base_url() ?>assets/plugins/counterup/jquery.counterup.min.js"></script>
-<script type="text/javascript">
-  $(document).ready(function() {
-    // Assuming you have a DataTable instance on the element with id 'example2'
-    var table = $('#dataAnak').DataTable();
-    table.destroy(); // Destroy the DataTable instance
-
-    var table = $('#dataAnak').DataTable({
-      lengthChange: false,
-      buttons: ['copy', 'excel', 'pdf', 'print']
-    });
-
-    table.buttons().container().appendTo('#dataAnak .col-md-6:eq(0)');
-
-  });
-</script>

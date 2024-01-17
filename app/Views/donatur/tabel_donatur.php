@@ -23,16 +23,16 @@
               <img src="<?= base_url() ?>/images/default-product.png" class="product-img-2" style="object-fit: cover;" alt="product img">
             <?php endif; ?>
           </td>
-          <td><?= $data['nama'] ?></td>
+          <td><a href="<?= base_url() ?>donatur/profile?id=<?= $data['id'] ?>" class="text-dark"><?= $data['nama'] ?></a></td>
           <td class="text-center"><?= $data['nohp'] ?></td>
           <td>
-            <?= (isset($data['desa']) ? $data['desa'] : "")
-              . (isset($data['rt']) ? " RT" . $data['rt'] : "")
-              . (isset($data['rw']) ? " RW" . $data['rw'] : "")
-              . (isset($data['kecamatan']) ? ", Kec. " . $data['kecamatan'] : "")
-              . (isset($data['kabupaten']) ? ", Kab. " . $data['kabupaten'] : "")
-              . " - "
-              . (isset($data['provinsi']) ? "" . $data['provinsi'] : "");
+            <?= ((isset($data['alamat']) && !empty($data['alamat'])) ? $data['alamat'] : "")
+              . ((isset($data['desa']) && !empty($data['desa'])) ? $data['desa'] : "")
+              . ((isset($data['rt']) && !empty($data['rt'])) ? " RT" . $data['rt'] : "")
+              . ((isset($data['rw']) && !empty($data['rw']))  ? " RW" . $data['rw'] : "")
+              . ((isset($data['kecamatan']) && !empty($data['kecamatan']))  ? ", Kec. " . $data['kecamatan'] : "")
+              . ((isset($data['kabupaten']) && !empty($data['kabupaten']))  ? ", Kab. " . $data['kabupaten'] : "")
+              . ((isset($data['provinsi']) && !empty($data['provinsi']))  ? " - " . $data['provinsi'] : "");
             ?>
           </td>
           <td class="text-center">

@@ -92,7 +92,7 @@ class Anak extends BaseController
       if ($_POST["statusAnak"] != "Semua Data") {
         $where['status_anak'] = $_POST['statusAnak'];
       }
-      $dataAnak = $manak->where($where)->get()->getResultArray();
+      $dataAnak = $manak->where($where)->orderBy("nip", "DESC")->get()->getResultArray();
       $data = [
         "anak_asuh" => $dataAnak
       ];

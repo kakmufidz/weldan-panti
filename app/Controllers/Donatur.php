@@ -65,7 +65,7 @@ class Donatur extends BaseController
     if ($_GET['act'] == "tabel-donatur") {
       $id_panti = $this->session->get('ID_PANTI');
       $mdonatur = new ModelsDonatur();
-      $dataDonatur = $mdonatur->where(['id_panti' => $id_panti, 'deleted_at' => null])->get()->getResultArray();
+      $dataDonatur = $mdonatur->where(['id_panti' => $id_panti, 'deleted_at' => null])->orderBy("id", "desc")->get()->getResultArray();
       $data = [
         "donatur" => $dataDonatur
       ];
@@ -110,6 +110,7 @@ class Donatur extends BaseController
           'id_panti' => $id_panti,
           'nama' => $_POST['namaDonatur'],
           'nohp' => $_POST['nohp'],
+          'alamat' => $_POST['alamat'],
           'rt' => $_POST['rt'],
           'rw' => $_POST['rw'],
           'desa' => $_POST['desa'],

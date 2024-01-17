@@ -31,7 +31,7 @@
               <?= $data['nama'] ?>
             <?php endif; ?>
           </td>
-          <td class="text-center"><?= date("d-m-Y", strtotime($data['tanggal_pemasukan'])) ?></td>
+          <td class="text-center"><?= tgl_indo(date("Y-m-d", strtotime($data['tanggal_pemasukan']))) ?></td>
           <td class="text-end"><?= rupiah($data['jumlah']) ?></td>
           <td><?= $data['keterangan'] ?></td>
           <td class="text-center">

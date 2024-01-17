@@ -31,7 +31,7 @@
                   <p class="text-danger">* Wajib diisi</p>
                 </div>
                 <div class="mb-3">
-                  <label for="namaDonatur" class="form-label">Nama Donatur <span class="text-danger">*</span></label>
+                  <label for="namaDonatur" class="form-label">Nama Donatur<span class="text-danger">*</span></label>
                   <input type="text" class="form-control" id="namaDonatur" name="namaDonatur" placeholder="Masukkan nama donatur" required>
                   <div id="validation-namaDonatur" class="invalid-feedback"></div>
                 </div>
@@ -43,6 +43,15 @@
                     </div>
                   </div>
                   <div id="validation-nohp" class="invalid-feedback"></div>
+                </div>
+                <div class="mb-3">
+                  <div class="row">
+                    <div class="col-12">
+                      <label for="alamat" class="form-label">Alamat</label>
+                      <textarea class="form-control" id="alamat" name="alamat" placeholder="Alamat"></textarea>
+                    </div>
+                  </div>
+                  <div id="validation-alamat" class="invalid-feedback"></div>
                 </div>
                 <div class="mb-3">
                   <div class="row">

@@ -61,13 +61,12 @@
           <td><?= $anak['tempat_lahir'] . ", " . tgl_indo(date("Y-m-d", strtotime($anak['tanggal_lahir']))) ?></td>
           <td><?= $anak['status_anak'] . ", " . $anak['status_panti'] ?></td>
           <td>
-            <?= (isset($anak['desa']) ? $anak['desa'] : "")
-              . (isset($anak['rt']) ? " RT" . $anak['rt'] : "")
-              . (isset($anak['rw']) ? " RW" . $anak['rw'] : "")
-              . (isset($anak['kecamatan']) ? ", Kec. " . $anak['kecamatan'] : "")
-              . (isset($anak['kabupaten']) ? ", Kab. " . $anak['kabupaten'] : "")
-              . " - "
-              . (isset($anak['provinsi']) ? "" . $anak['provinsi'] : "");
+            <?= ((isset($anak['desa']) && !empty($anak['desa'])) ? $anak['desa'] : "")
+              . ((isset($anak['rt']) && !empty($anak['rt'])) ? " RT" . $anak['rt'] : "")
+              . ((isset($anak['rw']) && !empty($anak['rw'])) ? " RW" . $anak['rw'] : "")
+              . ((isset($anak['kecamatan']) && !empty($anak['kecamatan'])) ? ", Kec. " . $anak['kecamatan'] : "")
+              . ((isset($anak['kabupaten']) && !empty($anak['kabupaten'])) ? ", Kab. " . $anak['kabupaten'] : "")
+              . ((isset($anak['provinsi']) && !empty($anak['provinsi'])) ? " - " . $anak['provinsi'] : "");
             ?>
           </td>
           <td>
@@ -97,7 +96,7 @@
       buttons: ['copy', 'excel', 'pdf', 'print']
     });
 
-    table.buttons().container().appendTo('#example2_wrapper .col-md-6:eq(0)');
+    table.buttons().container().appendTo('#dataAnak .col-md-6:eq(0)');
 
   });
 </script>

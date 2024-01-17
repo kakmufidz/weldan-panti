@@ -29,17 +29,17 @@
               <div class="border border-3 p-4 rounded">
                 <div class="mb-3">
                   <p class="text-danger">* Wajib diisi</p>
-                  <label for="nipAnak" class="form-label">Nomor Induk Panti*</label>
+                  <label for="nipAnak" class="form-label">Nomor Induk Panti<span class="text-danger">*</span></label>
                   <input type="text" class="form-control" id="nipAnak" name="nipAnak" placeholder="Masukkan NIP anak" required>
                   <div id="validation-nipAnak" class="invalid-feedback"></div>
                 </div>
                 <div class="mb-3">
-                  <label for="namaAnak" class="form-label">Nama Anak*</label>
+                  <label for="namaAnak" class="form-label">Nama Anak<span class="text-danger">*</span></label>
                   <input type="text" class="form-control" id="namaAnak" name="namaAnak" placeholder="Masukkan nama anak" required>
                   <div id="validation-namaAnak" class="invalid-feedback"></div>
                 </div>
                 <div class="mb-3">
-                  <label for="tempatLahir" class="form-label">Tempat & Tanggal Lahir*</label>
+                  <label for="tempatLahir" class="form-label">Tempat & Tanggal Lahir<span class="text-danger">*</span></label>
                   <div class="row">
                     <div class="col-5">
                       <input type="text" class="form-control" id="tempatLahir" name="tempatLahir" placeholder="Masukkan tempat lahir" required>
@@ -54,11 +54,11 @@
                 <div class="mb-3">
                   <div class="row">
                     <div class="col-2">
-                      <label for="rt" class="form-label">RT*</label>
+                      <label for="rt" class="form-label">RT<span class="text-danger">*</span></label>
                       <input type="text" class="form-control" id="rt" name="rt" placeholder="RT" required>
                     </div>
                     <div class="col-2">
-                      <label for="rw" class="form-label">RW*</label>
+                      <label for="rw" class="form-label">RW<span class="text-danger">*</span></label>
                       <input type="text" class="form-control" id="rw" name="rw" placeholder="RW" required>
                     </div>
                   </div>
@@ -68,11 +68,11 @@
                 <div class="mb-3">
                   <div class="row">
                     <div class="col-6">
-                      <label for="desa" class="form-label">DESA*</label>
+                      <label for="desa" class="form-label">DESA<span class="text-danger">*</span></label>
                       <input type="text" class="form-control" id="desa" name="desa" placeholder="Masukkan Desa" required>
                     </div>
                     <div class="col-6">
-                      <label for="kecamatan" class="form-label">KECAMATAN*</label>
+                      <label for="kecamatan" class="form-label">KECAMATAN<span class="text-danger">*</span></label>
                       <input type="text" class="form-control" id="kecamatan" name="kecamatan" placeholder="Masukkan Kecamatan" required>
                     </div>
                   </div>
@@ -82,11 +82,11 @@
                 <div class="mb-3">
                   <div class="row">
                     <div class="col-6">
-                      <label for="kabupaten" class="form-label">KABUPATEN*</label>
+                      <label for="kabupaten" class="form-label">KABUPATEN<span class="text-danger">*</span></label>
                       <input type="text" class="form-control" id="kabupaten" name="kabupaten" placeholder="Masukkan Kabupaten" required>
                     </div>
                     <div class="col-6">
-                      <label for="provinsi" class="form-label">PROVINSI*</label>
+                      <label for="provinsi" class="form-label">PROVINSI<span class="text-danger">*</span></label>
                       <input type="text" class="form-control" id="provinsi" name="provinsi" placeholder="Masukkan provinsi" required>
                     </div>
                   </div>
@@ -127,7 +127,7 @@
               <div class="border border-3 p-4 rounded">
                 <div class="row g-3">
                   <div class="col-md-12">
-                    <label for="fotoAnak" class="form-label">Foto Anak*</label>
+                    <label for="fotoAnak" class="form-label">Foto Anak</label>
                     <input id="fotoAnak" class="form-control" type="file" name="fotoAnak" accept="image/*">
                     <div id="validation-fotoAnak" class="invalid-feedback"></div>
                   </div>

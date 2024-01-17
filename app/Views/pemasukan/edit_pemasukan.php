@@ -67,14 +67,14 @@
                     <option value="donatur-baru">Tambah Donatur Baru (jika belum tersedia)</option>
                     <?php foreach ($alldonatur as $data) : ?>
                       <option value="<?= $data['id'] ?>" <?= ($data['id'] == $pemasukan['id_donatur']) ? "selected" : "" ?>>
-                        <?= $data['nama'] . " (" . $data['nohp'] . ") - " ?>
-                        <?= (isset($data['desa']) ? $data['desa'] : "")
-                          . (isset($data['rt']) ? " RT" . $data['rt'] : "")
-                          . (isset($data['rw']) ? " RW" . $data['rw'] : "")
-                          . (isset($data['kecamatan']) ? ", Kec. " . $data['kecamatan'] : "")
-                          . (isset($data['kabupaten']) ? ", Kab. " . $data['kabupaten'] : "")
-                          . " - "
-                          . (isset($data['provinsi']) ? "" . $data['provinsi'] : "");
+                        <?= $data['nama'] .  ((isset($data['nohp']) && !empty($data['nohp'])) ? " (" . $data['nohp'] . ") " : "") . " - "  ?>
+                        <?= ((isset($data['alamat']) && !empty($data['alamat'])) ? $data['alamat'] : "")
+                          . ((isset($data['desa']) && !empty($data['desa'])) ? $data['desa'] : "")
+                          . ((isset($data['rt']) && !empty($data['rt'])) ? " RT" . $data['rt'] : "")
+                          . ((isset($data['rw']) && !empty($data['rw']))  ? " RW" . $data['rw'] : "")
+                          . ((isset($data['kecamatan']) && !empty($data['kecamatan']))  ? ", Kec. " . $data['kecamatan'] : "")
+                          . ((isset($data['kabupaten']) && !empty($data['kabupaten']))  ? ", Kab. " . $data['kabupaten'] : "")
+                          . ((isset($data['provinsi']) && !empty($data['provinsi']))  ? " - " . $data['provinsi'] : "");
                         ?>
                       </option>
                     <?php endforeach; ?>

@@ -52,7 +52,7 @@
           <div class="card">
             <div class="card-body">
               <div class="">
-                <label for="tempatLahir" class="form-label">Tempat & Tanggal Lahir*</label>
+                <label for="tempatLahir" class="form-label">Tempat & Tanggal Lahir</label>
                 <div class="row">
                   <div class="col-lg-5 mb-3">
                     <input type="text" class="form-control" id="tempatLahir" name="tempatLahir" value="<?= $anak['tempat_lahir'] ?>" placeholder="Masukkan tempat lahir" required disabled>
@@ -65,11 +65,11 @@
               <div class="mb-3">
                 <div class="row">
                   <div class="col-lg-2">
-                    <label for="rt" class="form-label">RT*</label>
+                    <label for="rt" class="form-label">RT</label>
                     <input type="text" class="form-control" id="rt" name="rt" value="<?= $anak['rt'] ?>" placeholder="RT" required disabled>
                   </div>
                   <div class="col-lg-2">
-                    <label for="rw" class="form-label">RW*</label>
+                    <label for="rw" class="form-label">RW</label>
                     <input type="text" class="form-control" id="rw" name="rw" value="<?= $anak['rw'] ?>" placeholder="RW" required disabled>
                   </div>
                 </div>
@@ -77,11 +77,11 @@
               <div class="mb-3">
                 <div class="row">
                   <div class="col-lg-6">
-                    <label for="desa" class="form-label">DESA*</label>
+                    <label for="desa" class="form-label">DESA</label>
                     <input type="text" class="form-control" id="desa" name="desa" value="<?= $anak['desa'] ?>" placeholder="Masukkan Desa" required disabled>
                   </div>
                   <div class="col-lg-6">
-                    <label for="kecamatan" class="form-label">KECAMATAN*</label>
+                    <label for="kecamatan" class="form-label">KECAMATAN</label>
                     <input type="text" class="form-control" id="kecamatan" name="kecamatan" value="<?= $anak['kecamatan'] ?>" placeholder="Masukkan Kecamatan" required disabled>
                   </div>
                 </div>
@@ -89,11 +89,11 @@
               <div class="mb-3">
                 <div class="row">
                   <div class="col-lg-6">
-                    <label for="kabupaten" class="form-label">KABUPATEN*</label>
+                    <label for="kabupaten" class="form-label">KABUPATEN</label>
                     <input type="text" class="form-control" id="kabupaten" name="kabupaten" value="<?= $anak['kabupaten'] ?>" placeholder="Masukkan Kabupaten" required disabled>
                   </div>
                   <div class="col-lg-6">
-                    <label for="provinsi" class="form-label">PROVINSI*</label>
+                    <label for="provinsi" class="form-label">PROVINSI</label>
                     <input type="text" class="form-control" id="provinsi" name="provinsi" value="<?= $anak['provinsi'] ?>" placeholder="Masukkan provinsi" required disabled>
                   </div>
                 </div>
@@ -233,7 +233,7 @@
                                       <div class="mb-3">
                                         <div class="row">
                                           <div class="col-lg-4">
-                                            <label for="tanggal" class="form-label">Tanggal dan Waktu<span class="text-danger">*</span></label>
+                                            <label for="tanggal" class="form-label">Tanggal dan Waktu</label>
                                             <div class="input-group">
                                               <input class="result form-control" type="text" id="tanggal" name="tanggal" value="<?= date("d/m/Y H:i", strtotime($kembang['waktu_rekam'])) ?>" disabled> <span class="input-group-text" id="basic-addon2"><i class="bx bx-calendar-exclamation"></i></span>
                                             </div>
@@ -241,7 +241,7 @@
                                         </div>
                                       </div>
                                       <div class="mb-3">
-                                        <label for="tempat" class="form-label">Tempat<span class="text-danger">*</span></label>
+                                        <label for="tempat" class="form-label">Tempat</label>
                                         <div class="row">
                                           <div class="col-lg-6">
                                             <input type="text" class="form-control" id="tempat" name="tempat" value="<?= $kembang['tempat'] ?>" disabled>
@@ -251,11 +251,11 @@
                                       <h5 class="card-title">Keadaan Fisik</h5>
                                       <div class="row">
                                         <div class="col-lg-4 mb-3">
-                                          <label for="tinggiFisik" class="form-label">Tinggi Badan<span class="text-danger">*</span></label>
+                                          <label for="tinggiFisik" class="form-label">Tinggi Badan</label>
                                           <input type="text" class="form-control" id="tinggiFisik" name="tinggiFisik" value="<?= $kembang['tinggibadan_fisik'] ?>" disabled>
                                         </div>
                                         <div class="col-lg-4 mb-3">
-                                          <label for="beratFisik" class="form-label">Berat Badan<span class="text-danger">*</span></label>
+                                          <label for="beratFisik" class="form-label">Berat Badan</label>
                                           <input type="text" class="form-control" id="beratFisik" name="beratFisik" value="<?= $kembang['beratbadan_fisik'] ?>" disabled>
                                         </div>
                                         <div class="col-lg-4 mb-3">
@@ -363,19 +363,19 @@
                       <div class="col-lg-6 p-3 border rounded">
                         <h5 class="card-title">Ayah</h5>
                         <div class="mb-3">
-                          <label for="namaAyah" class="form-label">Nama Ayah<span class="text-danger">*</span></label>
+                          <label for="namaAyah" class="form-label">Nama Ayah</label>
                           <input type="text" class="form-control" id="namaAyah" name="namaAyah" value="<?= (isset($orangtua['nama_ayah'])) ? $orangtua['nama_ayah'] : "" ?>" disabled>
                         </div>
                         <div class="mb-3">
-                          <label for="pekerjaanAyah" class="form-label">Pekerjaan Ayah<span class="text-danger">*</span></label>
+                          <label for="pekerjaanAyah" class="form-label">Pekerjaan Ayah</label>
                           <input type="text" class="form-control" id="pekerjaanAyah" name="pekerjaanAyah" value="<?= (isset($orangtua['pekerjaan_ayah'])) ? $orangtua['pekerjaan_ayah'] : "" ?>" disabled>
                         </div>
                         <div class="mb-3">
-                          <label for="agamaAyah" class="form-label">Agama Ayah<span class="text-danger">*</span></label>
+                          <label for="agamaAyah" class="form-label">Agama Ayah</label>
                           <input type="text" class="form-control" id="agamaAyah" name="agamaAyah" value="<?= (isset($orangtua['agama_ayah'])) ? $orangtua['agama_ayah'] : "" ?>" disabled>
                         </div>
                         <div class="mb-3">
-                          <label for="hpAyah" class="form-label">Nomor HP Ayah<span class="text-danger">*</span></label>
+                          <label for="hpAyah" class="form-label">Nomor HP Ayah</label>
                           <input type="text" class="form-control" id="hpAyah" name="hpAyah" value="<?= (isset($orangtua['hp_ayah'])) ? $orangtua['hp_ayah'] : "" ?>" disabled>
                         </div>
                         <div class="mb-3">
@@ -434,19 +434,19 @@
                       <div class="col-lg-6 p-3 border rounded">
                         <h5 class="card-title">Ibu</h5>
                         <div class="mb-3">
-                          <label for="namaIbu" class="form-label">Nama Ibu<span class="text-danger">*</span></label>
+                          <label for="namaIbu" class="form-label">Nama Ibu</label>
                           <input type="text" class="form-control" id="namaIbu" name="namaIbu" value="<?= (isset($orangtua['nama_ibu'])) ? $orangtua['nama_ibu'] : "" ?>" disabled>
                         </div>
                         <div class="mb-3">
-                          <label for="pekerjaanIbu" class="form-label">Pekerjaan Ibu<span class="text-danger">*</span></label>
+                          <label for="pekerjaanIbu" class="form-label">Pekerjaan Ibu</label>
                           <input type="text" class="form-control" id="pekerjaanIbu" name="pekerjaanIbu" value="<?= (isset($orangtua['pekerjaan_ibu'])) ? $orangtua['pekerjaan_ibu'] : "" ?>" disabled>
                         </div>
                         <div class="mb-3">
-                          <label for="agamaIbu" class="form-label">Agama Ibu<span class="text-danger">*</span></label>
+                          <label for="agamaIbu" class="form-label">Agama Ibu</label>
                           <input type="text" class="form-control" id="agamaIbu" name="agamaIbu" value="<?= (isset($orangtua['agama_ibu'])) ? $orangtua['agama_ibu'] : "" ?>" disabled>
                         </div>
                         <div class="mb-3">
-                          <label for="hpIbu" class="form-label">Nomor HP Ibu<span class="text-danger">*</span></label>
+                          <label for="hpIbu" class="form-label">Nomor HP Ibu</label>
                           <input type="text" class="form-control" id="hpIbu" name="hpIbu" value="<?= (isset($orangtua['hp_ibu'])) ? $orangtua['hp_ibu'] : "" ?>" disabled>
                         </div>
                         <div class="mb-3">

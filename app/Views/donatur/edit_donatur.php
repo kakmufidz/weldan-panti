@@ -27,7 +27,7 @@
               <div class="border border-3 p-4 rounded">
                 <div class="mb-3">
                   <p class="text-danger">* Wajib diisi</p>
-                  <label for="namaDonatur" class="form-label">Nama Donatur*</label>
+                  <label for="namaDonatur" class="form-label">Nama Donatur<span class="text-danger">*</span></label>
                   <input type="hidden" class="form-control" id="idDonatur" name="idDonatur" value="<?= $donatur['id'] ?>" required>
                   <input type="text" class="form-control" id="namaDonatur" name="namaDonatur" placeholder="Masukkan nama donatur" value="<?= $donatur['nama'] ?>" required>
                   <div id="validation-namaDonatur" class="invalid-feedback"></div>
@@ -40,6 +40,15 @@
                     </div>
                   </div>
                   <div id="validation-nohp" class="invalid-feedback"></div>
+                </div>
+                <div class="mb-3">
+                  <div class="row">
+                    <div class="col-12">
+                      <label for="alamat" class="form-label">Alamat</label>
+                      <textarea class="form-control" id="alamat" name="alamat" placeholder="Alamat"><?= $donatur['alamat'] ?></textarea>
+                    </div>
+                  </div>
+                  <div id="validation-alamat" class="invalid-feedback"></div>
                 </div>
                 <div class="mb-3">
                   <div class="row">

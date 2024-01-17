@@ -13,7 +13,7 @@ class Pemasukan extends BaseController
     $this->validation = \Config\Services::validation();
     $this->session = session();
     $this->db = \Config\Database::connect();
-    helper('currency_helper');
+    helper(['currency_helper', 'date_helper']);
   }
 
   public function index()
@@ -21,7 +21,7 @@ class Pemasukan extends BaseController
     if ($this->session->get('NAMA') == null)  return redirect()->to(base_url());
     $id_panti = $this->session->get('ID_PANTI');
     $mdonatur = new Donatur();
-    $dataDonatur = $mdonatur->where(['id_panti' => $id_panti, 'deleted_at' => null])->get()->getResultArray();
+    $dataDonatur = $mdonatur->where(['id_panti' => $id_panti, 'deleted_at' => null])->orderBy("id", "DESC")->get()->getResultArray();
     $data = [
       "page_title" => "Donasi & Pemasukan",
       "session" => $this->session->get(),
@@ -37,7 +37,7 @@ class Pemasukan extends BaseController
     if ($_GET['act'] == "tabel-pemasukan") {
       $id_panti = $this->session->get('ID_PANTI');
       $mpemasukan = new ModelsPemasukan();
-      $datamPemasukan = $mpemasukan->where(['id_panti' => $id_panti, 'deleted_at' => null])->orderBy("tanggal_pemasukan", "DESC")->get()->getResultArray();
+      $datamPemasukan = $mpemasukan->where(['id_panti' => $id_panti, 'deleted_at' => null])->orderBy("tanggal_pemasukan DESC, id DESC")->get()->getResultArray();
       $data = [
         "pemasukan" => $datamPemasukan
       ];
@@ -52,7 +52,7 @@ class Pemasukan extends BaseController
     $mpemasukan = new ModelsPemasukan();
     $datamPemasukan = $mpemasukan->where(['id' => $_GET['id'], 'deleted_at' => null])->get()->getRowArray();
     $mdonatur = new Donatur();
-    $dataDonatur = $mdonatur->where(['id_panti' => $id_panti, 'deleted_at' => null])->get()->getResultArray();
+    $dataDonatur = $mdonatur->where(['id_panti' => $id_panti, 'deleted_at' => null])->orderBy("id", "DESC")->get()->getResultArray();
     $data = [
       "page_title" => "Edit Data Pemasukan",
       "pemasukan" => $datamPemasukan,

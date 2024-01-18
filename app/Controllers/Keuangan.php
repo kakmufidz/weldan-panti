@@ -12,7 +12,7 @@ class Keuangan extends BaseController
         $this->validation = \Config\Services::validation();
         $this->session = session();
         $this->db = \Config\Database::connect();
-        helper('currency_helper');
+        helper(['date_helper', 'currency_helper']);
     }
 
     public function index()

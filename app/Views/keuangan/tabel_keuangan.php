@@ -16,7 +16,7 @@
       foreach ($keuangan as $data) : ?>
         <tr>
           <td class="text-center"><?= $no ?></td>
-          <td><?= $data['tgl_pengeluaran'] ?></td>
+          <td><?= tgl_indo($data['tgl_pengeluaran']) ?></td>
           <td><?= $data['judul'] ?></td>
           <td>
             <div class="badge rounded-pill text-info bg-light-info p-2 text-uppercase px-3"><?= $data['kategori'] ?></div>

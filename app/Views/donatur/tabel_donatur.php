@@ -1,10 +1,9 @@
-<link href="<?= base_url() ?>/assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
 <div class="table-responsive mt-3">
-  <table id="example2" class="table align-middle mb-0">
+  <table id="tabelDonatur" class="table align-middle mb-0">
     <thead>
       <tr>
         <th class="text-center">#</th>
-        <th class="text-center" colspan="2">NAMA</th>
+        <th class="text-center">NAMA</th>
         <th class="text-center">NO HP</th>
         <th class="text-center">ALAMAT</th>
         <th class="text-center">AKSI</th>
@@ -16,14 +15,20 @@
         <tr>
           <td class="text-center"><?= $no ?></td>
           <td>
-            <?php $gambar = json_decode($data['foto']);
-            if (isset($gambar[0])) : ?>
-              <img src="<?= base_url() ?>/uploads/foto_donatur/<?= $gambar[0] ?>" class="product-img-2" style="object-fit: cover;" alt="product img">
-            <?php else : ?>
-              <img src="<?= base_url() ?>/images/default-product.png" class="product-img-2" style="object-fit: cover;" alt="product img">
-            <?php endif; ?>
+            <div class="d-flex align-items-center">
+              <div class="me-4">
+                <?php $gambar = json_decode($data['foto']);
+                if (isset($gambar[0])) : ?>
+                  <img src="<?= base_url() ?>/uploads/foto_donatur/<?= $gambar[0] ?>" class="product-img-2" style="object-fit: cover;" alt="product img">
+                <?php else : ?>
+                  <img src="<?= base_url() ?>/images/default-product.png" class="product-img-2" style="object-fit: cover;" alt="product img">
+                <?php endif; ?>
+              </div>
+              <div>
+                <a href="<?= base_url() ?>donatur/profile?id=<?= $data['id'] ?>" class="text-dark"><?= $data['nama'] ?></a>
+              </div>
+            </div>
           </td>
-          <td><a href="<?= base_url() ?>donatur/profile?id=<?= $data['id'] ?>" class="text-dark"><?= $data['nama'] ?></a></td>
           <td class="text-center"><?= $data['nohp'] ?></td>
           <td>
             <?= ((isset($data['alamat']) && !empty($data['alamat'])) ? $data['alamat'] : "")
@@ -47,16 +52,3 @@
     </tbody>
   </table>
 </div>
-<script src="<?= base_url() ?>/assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
-<script src="<?= base_url() ?>/assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
-<script type="text/javascript">
-  $(document).ready(function() {
-
-    var table = $('#example2').DataTable({
-      lengthChange: false,
-      buttons: ['copy', 'excel', 'pdf', 'print']
-    });
-
-    table.buttons().container().appendTo('#example2_wrapper .col-md-6:eq(0)');
-  });
-</script>

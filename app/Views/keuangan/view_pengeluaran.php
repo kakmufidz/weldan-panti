@@ -27,7 +27,9 @@
                     <main>
                         <div class="row contacts">
                             <div class="col invoice-to">
-                                <div class="text-gray-light">JUDUL:</div>
+                                <div class="text-gray-light">
+                                    <div class="badge rounded-pill text-info bg-light-info p-2 text-uppercase px-3"><?= $pengeluaran['kategori'] ?></div>
+                                </div>
                                 <h2 class="to"><?= $pengeluaran['judul'] ?></h2>
                                 <div class="date">Tanggal: <?= date("d-m-Y", strtotime($pengeluaran['tgl_pengeluaran'])) ?></div>
                             </div>

@@ -28,9 +28,12 @@ class Keuangan extends BaseController
     public function tambah_keuangan()
     {
         if ($this->session->get('NAMA') == null)  return redirect()->to(base_url());
+        $mpengeluaran = new Pengeluaran();
+        $dataKategori = $mpengeluaran->select('kategori')->distinct()->get()->getResultArray();
         $data = [
             "page_title" => "Tambah Data Pengeluaran",
-            "session" => $this->session->get()
+            "session" => $this->session->get(),
+            "kategori" => $dataKategori
         ];
         return view('keuangan/tambah_keuangan', $data);
     }
@@ -41,7 +44,7 @@ class Keuangan extends BaseController
         if ($_GET['act'] == "tabel-keuangan") {
             $id_panti = $this->session->get('ID_PANTI');
             $mpengeluaran = new Pengeluaran();
-            $dataKeuangan = $mpengeluaran->where(['id_panti' => $id_panti, 'deleted_at' => null])->get()->getResultArray();
+            $dataKeuangan = $mpengeluaran->where(['id_panti' => $id_panti, 'deleted_at' => null])->orderBy("tgl_pengeluaran", "desc")->get()->getResultArray();
             $data = [
                 "keuangan" => $dataKeuangan
             ];
@@ -74,11 +77,13 @@ class Keuangan extends BaseController
         $mitem = new ItemPengeluaran();
         $dataPengeluaran = $mpengeluaran->where(['id' => $_GET['id'], 'deleted_at' => null])->get()->getRowArray();
         $dataItem = $mitem->where(['id_pengeluaran' => $_GET['id'], 'deleted_at' => null])->get()->getResultArray();
+        $dataKategori = $mpengeluaran->select('kategori')->distinct()->get()->getResultArray();
         $data = [
             "page_title" => "Detail Pengeluaran",
             "session" => $this->session->get(),
             "pengeluaran" => $dataPengeluaran,
             "dataItem" => $dataItem,
+            "kategori" => $dataKategori
         ];
         return view('keuangan/edit_pengeluaran', $data);
     }
@@ -96,6 +101,10 @@ class Keuangan extends BaseController
                     'label' => 'Judul',
                     'rules' => 'required'
                 ],
+                'kategori' => [
+                    'label' => 'Kategori',
+                    'rules' => 'required'
+                ],
                 'item' => [
                     'label' => 'Item',
                     'rules' => 'required'
@@ -109,6 +118,14 @@ class Keuangan extends BaseController
                     'rules' => 'required'
                 ],
             ];
+
+            if ($_POST['kategori'] == "newKategori") {
+                $validationRule['kategori_baru'] = [
+                    'label' => 'Kategori baru',
+                    'rules' => 'required'
+                ];
+            }
+
 
             if (!empty($_FILES['fileUpload']['name'])) {
                 $validationRule['fileUpload'] = [
@@ -133,10 +150,16 @@ class Keuangan extends BaseController
             } else {
                 $id_panti = $this->session->get('ID_PANTI');
                 $tanggal = date("Y-m-d", strtotime(str_replace("/", "-", $_POST['tanggal'])));
+                if ($_POST['kategori'] == "newKategori") {
+                    $kategori = $_POST['kategori_baru'];
+                } else {
+                    $kategori = $_POST['kategori'];
+                }
                 $input_data = [
                     'id_panti' => $id_panti,
                     'tgl_pengeluaran' => $tanggal,
                     'judul' => $_POST['judul'],
+                    'kategori' => $kategori,
                     'total_pengeluaran' => $_POST['totalPengeluaran'],
                     'keterangan' => $_POST['keterangan'],
                 ];
@@ -223,6 +246,10 @@ class Keuangan extends BaseController
                     'label' => 'Judul',
                     'rules' => 'required'
                 ],
+                'kategori' => [
+                    'label' => 'Kategori',
+                    'rules' => 'required'
+                ],
                 'item' => [
                     'label' => 'Item',
                     'rules' => 'required'
@@ -236,6 +263,13 @@ class Keuangan extends BaseController
                     'rules' => 'required'
                 ],
             ];
+
+            if ($_POST['kategori'] == "newKategori") {
+                $validationRule['kategori_baru'] = [
+                    'label' => 'Kategori baru',
+                    'rules' => 'required'
+                ];
+            }
 
             if (!empty($_FILES['fileUpload']['name'])) {
                 $validationRule['fileUpload'] = [
@@ -260,10 +294,16 @@ class Keuangan extends BaseController
             } else {
                 $id_panti = $this->session->get('ID_PANTI');
                 $tanggal = date("Y-m-d", strtotime(str_replace("/", "-", $_POST['tanggal'])));
+                if ($_POST['kategori'] == "newKategori") {
+                    $kategori = $_POST['kategori_baru'];
+                } else {
+                    $kategori = $_POST['kategori'];
+                }
                 $input_data = [
                     'id_panti' => $id_panti,
                     'tgl_pengeluaran' => $tanggal,
                     'judul' => $_POST['judul'],
+                    'kategori' => $kategori,
                     'total_pengeluaran' => $_POST['totalPengeluaran'],
                     'keterangan' => $_POST['keterangan'],
                 ];

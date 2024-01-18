@@ -3,6 +3,7 @@
 <link href="<?= base_url() ?>assets/plugins/select2/css/select2.min.css" rel="stylesheet" />
 <link href="<?= base_url() ?>assets/plugins/select2/css/select2-bootstrap4.css" rel="stylesheet" />
 <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.min.css">
+<link href="<?= base_url() ?>/assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
 <div class="page-content">
   <!--breadcrumb-->
   <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
@@ -140,6 +141,8 @@
 <script src="<?= base_url() ?>assets/plugins/select2/js/select2.min.js"></script>
 <script src="<?= base_url() ?>assets/plugins/bootstrap-material-datetimepicker/js/moment.min.js"></script>
 <script src="<?= base_url() ?>assets/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.min.js"></script>
+<script src="<?= base_url() ?>/assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
+<script src="<?= base_url() ?>/assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
 <script>
   function get_pemasukan() {
     $.ajax({
@@ -147,6 +150,12 @@
       url: '<?= base_url() ?>pemasukan/get_data?act=tabel-pemasukan',
       success: function(result) {
         $('#show_tabelPemasukan').html(result);
+        var table = $('#tabelPemasukan').DataTable({
+          lengthChange: true,
+          buttons: ['copy', 'excel', 'pdf', 'print']
+        });
+        table.buttons().container().appendTo('#tabelPemasukan_wrapper .col-md-6:eq(0)');
+        $(".dt-buttons").css("margin-top", "10px");
       },
     });
   }

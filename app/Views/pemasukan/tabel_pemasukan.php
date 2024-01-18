@@ -1,6 +1,5 @@
-<link href="<?= base_url() ?>/assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
 <div class="table-responsive mt-3">
-  <table id="example2" class="table align-middle mb-0">
+  <table id="tabelPemasukan" class="table align-middle mb-0">
     <thead>
       <tr>
         <th class="text-center">#</th>
@@ -50,16 +49,3 @@
     </tbody>
   </table>
 </div>
-<script src="<?= base_url() ?>/assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
-<script src="<?= base_url() ?>/assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
-<script type="text/javascript">
-  $(document).ready(function() {
-
-    var table = $('#example2').DataTable({
-      lengthChange: false,
-      buttons: ['copy', 'excel', 'pdf', 'print']
-    });
-
-    table.buttons().container().appendTo('#example2_wrapper .col-md-6:eq(0)');
-  });
-</script>

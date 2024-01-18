@@ -5,7 +5,8 @@
       <tr>
         <th class="text-center" style="width: 5%;">#</th>
         <th class="text-center" style="width: 15%;">TANGGAL</th>
-        <th class="text-center" style="width: 40%;">JUDUL</th>
+        <th class="text-center" style="width: 35%;">JUDUL</th>
+        <th class="text-center" style="width: 15%;">KATEGORI</th>
         <th class="text-center" style="width: 20%;">TOTAL</th>
         <th class="text-center" style="width: 20%;">AKSI</th>
       </tr>
@@ -17,6 +18,9 @@
           <td class="text-center"><?= $no ?></td>
           <td><?= $data['tgl_pengeluaran'] ?></td>
           <td><?= $data['judul'] ?></td>
+          <td>
+            <div class="badge rounded-pill text-info bg-light-info p-2 text-uppercase px-3"><?= $data['kategori'] ?></div>
+          </td>
           <td class="text-end"><?= rupiah($data['total_pengeluaran']) ?></td>
           <td>
             <div class="d-flex order-actions justify-content-center">

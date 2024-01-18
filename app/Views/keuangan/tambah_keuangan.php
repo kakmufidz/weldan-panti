@@ -47,6 +47,20 @@
                   <input type="text" class="form-control" id="judul" name="judul" placeholder="Masukkan judul pengeluaran" required>
                   <div id="validation-judul" class="invalid-feedback"></div>
                 </div>
+                <div class="mb-3">
+                  <label for="kategori" class="form-label">Kategori Pengeluaran</label>
+                  <select class="form-select" id="kategori" name="kategori" required>
+                    <?php if (!empty($kategori[0]['kategori'])) :
+                      foreach ($kategori as $item) : ?>
+                        <option value="<?= $item['kategori'] ?>"><?= $item['kategori'] ?></option>
+                    <?php endforeach;
+                    endif; ?>
+                    <option value="newKategori" class="text-primary">Kategori Baru</option>
+                  </select>
+                  <div id="newKat"></div>
+                  <div id="validation-kategori_baru" class="invalid-feedback"></div>
+                  <div id="validation-kategori" class="invalid-feedback"></div>
+                </div>
                 <div class="mb-3" id="listPengeluaran">
                   <label for="listPengeluaran" class="form-label">List Pengeluaran<span class="text-danger">*</span></label>
                   <div class="row mx-3" id="itemPengeluaran1">
@@ -140,10 +154,26 @@
     $('#totalPengeluaran').val(total);
   }
 
+  function kategori() {
+    var kategori = $('#kategori').val();
+    if (kategori == "newKategori") {
+      var input = '<input type="text" class="form-control mt-3" id="kategori_baru" name="kategori_baru" placeholder="Masukan kategori baru" required>';
+    } else {
+      var input = '';
+    }
+    $('#newKat').html(input);
+  }
+
   $(document).ready(function() {
+    kategori();
+
     $('#tanggal').bootstrapMaterialDatePicker({
       format: 'DD/MM/YYYY',
       time: false,
+    });
+
+    $('#kategori').on('change', function() {
+      kategori();
     });
 
     $('#btnAddItem').on('click', function() {
@@ -179,7 +209,7 @@
       count_total()
     });
 
-    $("#listPengeluaran").on("change", ".num_validation", function() {
+    $("#listPengeluaran").on("keyup", ".num_validation", function() {
       let inputValue = $(this).val();
       if (inputValue < 1) {
         $(this).val('1');

@@ -57,9 +57,8 @@ class Keuangan extends BaseController
         if ($this->session->get('NAMA') == null)  return redirect()->to(base_url());
         if (!isset($_GET['id'])) return redirect()->to(base_url());
         $mpengeluaran = new Pengeluaran();
-        $mitem = new ItemPengeluaran();
         $dataPengeluaran = $mpengeluaran->where(['id' => $_GET['id'], 'deleted_at' => null])->get()->getRowArray();
-        $dataItem = $mitem->where(['id_pengeluaran' => $_GET['id'], 'deleted_at' => null])->get()->getResultArray();
+        $dataItem = $this->db->table("item_pengeluaran")->select("*")->where(['id_pengeluaran' => $_GET['id'], 'deleted_at' => null])->get()->getResultArray();
         $data = [
             "page_title" => "Detail Pengeluaran",
             "session" => $this->session->get(),
@@ -74,12 +73,11 @@ class Keuangan extends BaseController
         if ($this->session->get('NAMA') == null)  return redirect()->to(base_url());
         if (!isset($_GET['id'])) return redirect()->to(base_url());
         $mpengeluaran = new Pengeluaran();
-        $mitem = new ItemPengeluaran();
         $dataPengeluaran = $mpengeluaran->where(['id' => $_GET['id'], 'deleted_at' => null])->get()->getRowArray();
-        $dataItem = $mitem->where(['id_pengeluaran' => $_GET['id'], 'deleted_at' => null])->get()->getResultArray();
+        $dataItem = $this->db->table("item_pengeluaran")->select("*")->where(['id_pengeluaran' => $_GET['id'], 'deleted_at' => null])->get()->getResultArray();
         $dataKategori = $mpengeluaran->select('kategori')->distinct()->get()->getResultArray();
         $data = [
-            "page_title" => "Detail Pengeluaran",
+            "page_title" => "Edit Pengeluaran",
             "session" => $this->session->get(),
             "pengeluaran" => $dataPengeluaran,
             "dataItem" => $dataItem,
@@ -164,7 +162,7 @@ class Keuangan extends BaseController
                     'keterangan' => $_POST['keterangan'],
                 ];
                 $mpengeluaran = new Pengeluaran();
-                $mitem = new ItemPengeluaran();
+
                 $data['insert'] = $mpengeluaran->save($input_data);
                 $lastInsertId = $this->db->insertID();
                 $countItem = sizeof($_POST['item']);
@@ -180,7 +178,7 @@ class Keuangan extends BaseController
                         'harga' => $harga,
                         'total_harga' => $totalHarga,
                     ];
-                    $mitem->save($data_item);
+                    $this->db->table("item_pengeluaran")->select("*")->save($data_item);
                 }
                 if (!empty($_FILES['fileUpload']['name'][0])) {
                     $files = $this->request->getFiles();
@@ -204,9 +202,9 @@ class Keuangan extends BaseController
             echo json_encode($data);
         } elseif ($_GET['act'] == "delete_itemPengeluaran") {
             $delete =  $this->db->table("item_pengeluaran")->update(['deleted_at' => date("Y-m-d H:i:s")], ['id' => $_POST['id']]);
-            $mitem = new ItemPengeluaran();
-            $item = $mitem->where(['id' => $_POST['id']])->get()->getRowArray();
-            $dataItem = $mitem->select('total_harga')->where(['id_pengeluaran' => $item['id_pengeluaran'], 'deleted_at' => null])->get()->getResultArray();
+
+            $item = $this->db->table("item_pengeluaran")->select("*")->where(['id' => $_POST['id']])->get()->getRowArray();
+            $dataItem = $this->db->table("item_pengeluaran")->select("*")->select('total_harga')->where(['id_pengeluaran' => $item['id_pengeluaran'], 'deleted_at' => null])->get()->getResultArray();
             $total = 0;
             foreach ($dataItem as $harga) {
                 $total += $harga['total_harga'];
@@ -308,7 +306,7 @@ class Keuangan extends BaseController
                     'keterangan' => $_POST['keterangan'],
                 ];
                 $mpengeluaran = new Pengeluaran();
-                $mitem = new ItemPengeluaran();
+
                 $updateData = $this->db->table("pengeluaran")->update($input_data, ['id' => $_POST['idPengeluaran']]);
                 $countItem = sizeof($_POST['item']);
                 for ($i = 0; $i < $countItem; $i++) {
@@ -324,7 +322,7 @@ class Keuangan extends BaseController
                         'total_harga' => $totalHarga,
                     ];
                     if ($_POST['idItemPengeluaran'][$i] == 'new') {
-                        $mitem->save($data_item);
+                        $this->db->table("item_pengeluaran")->select("*")->save($data_item);
                     } else {
                         $this->db->table("item_pengeluaran")->update($data_item, ['id' => $_POST['idItemPengeluaran'][$i]]);
                     }

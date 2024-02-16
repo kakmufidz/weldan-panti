@@ -20,7 +20,7 @@ class Akun extends BaseController
         $mmanager = new Manager();
         $dataManager = $mmanager->where(array('email' => $this->session->get('EMAIL')))->first();
         $data = [
-            "page_title" => "Akun",
+            "page_title" => "Akun Panti",
             "session" => $this->session->get(),
             "user" => $dataManager
         ];
